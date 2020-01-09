@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
+import { Link as RouterLink } from 'react-router-dom';
 
 function TopBar() {
   return (
@@ -12,7 +13,7 @@ function TopBar() {
         <Paper>V9 Logo</Paper>
       </Grid>
       <Grid item xs={3}>
-        <Button variant={'contained'}>Login</Button>
+        <Button variant={'contained'} component={RouterLink} to={'/sign-in'}>Login</Button>
       </Grid>
     </React.Fragment>
   );
