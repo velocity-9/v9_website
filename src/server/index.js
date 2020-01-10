@@ -1,32 +1,32 @@
 require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
 const http = require('http');
 const passport = require('passport');
-const session = require('express-session');
-const cors = require('cors');
 const socketio = require('socket.io');
 const logger = require('morgan');
-const path = require('path');
-const { SESSION_SECRET, CLIENT_ORIGIN } = require('./config');
-const authRouter = require('./lib/auth.router');
-const testRouter = require('./router');
-const passportInit = require('./lib/passport.init');
+const authRouter = require('./util/auth/auth.router');
+const passportInit = require('./util/auth/passport.init');
+const verifyEnv = require('./util/verify_env');
 
+// Initialize express app
 const app = express();
-const server = http.createServer();
+// Create HTTP server, this will eventually be https
+const server = http.createServer(app);
+
+// Check for required env variables
+verifyEnv();
 
 app.use(logger('dev'));
-
 app.use(express.static('dist'));
 
+// Allow for parsing JSON
 app.use(express.json());
+
 app.use(passport.initialize());
 passportInit();
 
-app.use(cors({
-  origin: CLIENT_ORIGIN
-}));
-
+// Used to store session data
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
@@ -36,15 +36,7 @@ app.use(session({
 const io = socketio(server);
 app.set('io', io);
 
-app.get('/', (req, res) => {
-  res.send('hello, world!');
-});
+// Register the authentication router
+app.use('/api/auth', authRouter);
 
-//app.use('/api', testRouter);
-
-//app.use('/', authRouter);
-
-
-console.log('TESTING');
-console.log(`${process.env.GITHUB_SECRET}`);
 server.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

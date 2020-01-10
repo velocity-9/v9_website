@@ -1,10 +1,10 @@
 const providers = ['github'];
 
-const callbacks = providers.map(provider => `http://localhost:8080/api/auth/${provider}/callback`);
+const callbacks = providers.map(provider => `http://v9_website.ngrok.io/api/auth/${provider}/callback`);
 
 const [githubURL] = callbacks;
 
-exports.CLIENT_ORIGIN = ['http://127.0.0.1:3000', 'http://localhost:3000'];
+exports.CLIENT_ORIGIN = ['http://v9_website.ngrok.io', 'http://v9_website.ngrok.io'];
 
 exports.GITHUB_CONFIG = {
   clientID: process.env.GITHUB_KEY,

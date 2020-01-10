@@ -1,13 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
-import API_URL from '../../config';
 
 export default class OAuth extends React.Component {
   state = {
     user: {},
     disabled: ''
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -39,9 +38,9 @@ export default class OAuth extends React.Component {
     const { provider, socket } = this.props;
     const width = 600;
     const height = 600;
-    const left = (window.innerWidth / 2) - (width / 2)
-    const top = (window.innerHeight / 2) - (height / 2)
-    const url = `localhost:8080/api/auth/${provider}?socketId=${socket.id}`;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+    const url = `http://v9_website.ngrok.io/api/auth/${provider}?socketId=${socket.id}`;
 
     return window.open(url, '',
       `toolbar=no, location=no, directories=no, status=no, menubar=no, 
@@ -54,17 +53,17 @@ export default class OAuth extends React.Component {
       e.preventDefault();
       this.popup = this.openPopup();
       this.checkPopup();
-      this.setState({disabled: 'disabled'});
+      this.setState({ disabled: 'disabled' });
     }
   }
 
   closeCard() {
-    this.setState({user: {}});
+    this.setState({ user: {} });
   }
 
   render() {
-    const { name, photo } = this.state.user;
-    const { disabled } = this.state;
+    const { user } = this.state;
+    const { name, photo } = user;
 
     return (
       <div>
@@ -90,4 +89,4 @@ export default class OAuth extends React.Component {
 OAuth.propTypes = {
   provider: PropTypes.string.isRequired,
   socket: PropTypes.object.isRequired
-}
+};

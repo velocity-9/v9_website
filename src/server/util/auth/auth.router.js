@@ -5,15 +5,14 @@ const passport = require('passport');
 const authController = require('./auth.controller');
 
 const githubAuth = passport.authenticate('github');
-const testFunc = () => console.log('TESTING');
 
-router.get('/api/auth/github/callback', githubAuth, authController.github);
+router.get('/github/callback', githubAuth, authController.github);
 
 router.use((req, res, next) => {
   req.session.socketId = req.query.socketId;
   next();
 });
 
-router.get('/api/auth/github', githubAuth);
+router.get('/github', githubAuth);
 
 module.exports = router;

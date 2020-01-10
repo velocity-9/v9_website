@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, outputDirectory),
     filename: 'bundle.js',
-    //publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [{
@@ -35,14 +35,12 @@ module.exports = {
   devServer: {
     port: 3000,
     open: true,
+    disableHostCheck: true,
     proxy: {
-      '/api/**': {
-        target: 'http://localhost:8080',
-        secure: false,
-        changeOrigin: true
-      }
+      '/api/**': 'http://localhost:8080'
     },
-    //historyApiFallback: true
+    historyApiFallback: true,
+    public: 'http://v9_website.ngrok.io'
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),

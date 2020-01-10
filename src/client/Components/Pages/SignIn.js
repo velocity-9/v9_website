@@ -10,7 +10,7 @@ export default class SignIn extends React.Component {
     return (
       <div>
         <p>Sign up!</p>
-        <OAuth socket={socket} provider={'github'} key={'github'} />
+        <OAuth socket={socket} provider="github" key="github" />
       </div>
     );
   }
