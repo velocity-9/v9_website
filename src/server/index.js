@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
+
 const http = require('http');
 const passport = require('passport');
 const socketio = require('socket.io');
 const logger = require('morgan');
+
 const authRouter = require('./util/auth/auth.router');
 const passportInit = require('./util/auth/passport.init');
 const verifyEnv = require('./util/verify_env');

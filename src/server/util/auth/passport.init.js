@@ -1,7 +1,7 @@
 const passport = require('passport');
 const GithubStrategy = require('passport-github').Strategy;
 
-const { GITHUB_CONFIG } = require('../../config');
+const { GITHUB_CONFIG } = require('../../../../config');
 
 module.exports = () => {
   passport.serializeUser((user, cb) => cb(null, user));

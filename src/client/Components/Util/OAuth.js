@@ -3,15 +3,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
+import { BACKEND_BASE_URL } from '../../../../config';
+
 export default class OAuth extends React.Component {
   state = {
     user: {},
-    disabled: ''
+    isDisabled: false
   };
 
   constructor(props) {
     super(props);
 
+    // See https://www.freecodecamp.org/news/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react-f7ea1a6f93eb/
     this.startAuth = this.startAuth.bind(this);
     this.closeCard = this.closeCard.bind(this);
   }
@@ -26,22 +29,22 @@ export default class OAuth extends React.Component {
   }
 
   checkPopup() {
+    // Set interval returns the ID to be used by clearInterval()
     const check = setInterval(() => {
       const { popup } = this;
       if (!popup || popup.closed || popup.closed === undefined) {
         clearInterval(check);
-        this.setState({ disabled: '' });
+        this.setState({ isDisabled: false });
       }
     }, 1000);
   }
 
   openPopup() {
-    const { provider, socket } = this.props;
     const width = 600;
     const height = 600;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
-    const url = `http://v9_website.ngrok.io/api/auth/${provider}?socketId=${socket.id}`;
+    const url = `${BACKEND_BASE_URL}/api/auth/${this.props.provider}?socketId=${this.props.socket.id}`;
 
     return window.open(url, '',
       `toolbar=no, location=no, directories=no, status=no, menubar=no, 
@@ -50,11 +53,11 @@ export default class OAuth extends React.Component {
   }
 
   startAuth(e) {
-    if (!this.state.disabled) {
+    if (!this.state.isDisabled) {
       e.preventDefault();
       this.popup = this.openPopup();
       this.checkPopup();
-      this.setState({ disabled: 'disabled' });
+      this.setState({ isDisabled: true });
     }
   }
 

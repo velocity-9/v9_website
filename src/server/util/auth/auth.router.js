@@ -1,9 +1,10 @@
 const express = require('express');
 
-const router = express.Router();
 const passport = require('passport');
+
 const authController = require('./auth.controller');
 
+const router = express.Router();
 const githubAuth = passport.authenticate('github');
 
 router.get('/github/callback', githubAuth, authController.github);

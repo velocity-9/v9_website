@@ -1,17 +1,12 @@
+function checkVar(input, message) {
+  if (!input) {
+    throw new Error(message);
+  }
+}
+
 module.exports = () => {
-  if (!process.env.GITHUB_KEY) {
-    throw new Error('Missing env variable GITHUB_KEY!');
-  }
-
-  if (!process.env.GITHUB_SECRET) {
-    throw new Error('Missing env variable GITHUB_SECRET!');
-  }
-
-  if (!process.env.SESSION_SECRET) {
-    throw new Error('Missing env variable SESSION_SECRET!');
-  }
-
-  if (!process.env.HOST) {
-    throw new Error('Missing env variable HOST');
-  }
+  checkVar(process.env.GITHUB_KEY, 'Missing env variable GITHUB_KEY!');
+  checkVar(process.env.GITHUB_SECRET, 'Missing env variable GITHUB_SECRET!');
+  checkVar(process.env.SESSION_SECRET, 'Missing env variable SESSION_SECRET!');
+  checkVar(process.env.HOST, 'Missing env variable HOST!');
 };

@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const { FRONTEND_BASE_URL } = require('./config');
+
 const outputDirectory = 'dist';
 
 module.exports = {
@@ -40,7 +42,7 @@ module.exports = {
       '/api/**': 'http://localhost:8080'
     },
     historyApiFallback: true,
-    public: 'http://v9_website.ngrok.io'
+    public: FRONTEND_BASE_URL
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
