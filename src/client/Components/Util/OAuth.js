@@ -40,8 +40,10 @@ export default class OAuth extends React.Component {
   }
 
   openPopup() {
-    const width = 600;
-    const height = 600;
+    const isHeightLarger = window.innerHeight > window.innerWidth;
+    const width = isHeightLarger ? window.innerHeight * 0.3 : window.innerWidth * 0.3;
+    const height = isHeightLarger ? window.innerHeight * 0.3 : window.innerWidth * 0.3;
+
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
     const url = `${BACKEND_BASE_URL}/api/auth/${this.props.provider}?socketId=${this.props.socket.id}`;
@@ -66,8 +68,7 @@ export default class OAuth extends React.Component {
   }
 
   render() {
-    const { user } = this.state;
-    const { name, photo } = user;
+    const { name, photo } = this.state.user;
 
     return (
       <div>
