@@ -1,19 +1,23 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import Home from './Components/Pages/Home';
+import SignIn from './Components/Pages/SignIn';
 
 export default class App extends React.Component {
 
-  // componentDidMount() {
-  //   fetch('/api/getUsername')
-  //     .then(res => res.json())
-  //     .then(user => this.setState({ username: user.username }));
-  // }
-
   render() {
     return (
-      <div>
-        <Home />
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route path='/sign-in'>
+            <SignIn/>
+          </Route>
+          <Route path='/'>
+            <Home/>
+          </Route>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }

@@ -1,8 +1,16 @@
+# IDE Files
 /.idea
 .vscode
+
+# MacOS files
+**/.DS_Store
+
+# Javascript Files
 node_modules
 dist
-*.log
 yarn.lock
-**/.DS_Store
+
+# App Files
+*.log
+.env
 
