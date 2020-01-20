@@ -7,8 +7,9 @@ const passport = require('passport');
 const socketio = require('socket.io');
 const logger = require('morgan');
 
-const authRouter = require('./util/auth/auth.router');
-const passportInit = require('./util/auth/passport.init');
+const authRouter = require('./auth/auth.router');
+const dbRouter = require('./db/db.router');
+const passportInit = require('./auth/passport.init');
 const verifyEnv = require('./util/verify_env');
 
 // Initialize express app
@@ -40,5 +41,7 @@ app.set('io', io);
 
 // Register the authentication router
 app.use('/api/auth', authRouter);
+app.use('/api/db', dbRouter);
+
 
 server.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

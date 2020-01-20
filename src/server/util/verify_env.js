@@ -9,4 +9,6 @@ module.exports = () => {
   checkVar(process.env.GITHUB_SECRET, 'Missing env variable GITHUB_SECRET!');
   checkVar(process.env.SESSION_SECRET, 'Missing env variable SESSION_SECRET!');
   checkVar(process.env.HOST, 'Missing env variable HOST!');
+  checkVar(process.env.POSTGRES_USERNAME, 'Missing env POSTGRES_USERNAME');
+  checkVar(process.env.POSTGRES_PASSWORD, 'MISSING env POSTGRES_PASSWORD');
 };
