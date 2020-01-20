@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Home from './Components/Pages/Home';
 import SignIn from './Components/Pages/SignIn';
+import Dashboard from './Components/Pages/Dashboard';
+import ComponentStatus from './Components/Pages/ComponentStatus';
 
 export default class App extends React.Component {
 
@@ -10,12 +12,10 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path='/sign-in'>
-            <SignIn/>
-          </Route>
-          <Route path='/'>
-            <Home/>
-          </Route>
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/component/:user/:component" component={ComponentStatus} />
+          <Route path="/sign-in" component={SignIn} />
+          <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
     );
