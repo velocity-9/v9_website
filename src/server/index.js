@@ -6,6 +6,7 @@ const http = require('http');
 const passport = require('passport');
 const socketio = require('socket.io');
 const logger = require('morgan');
+//const cookies = require('universal-cookie-express');
 
 const authRouter = require('./auth/auth.router');
 const dbRouter = require('./db/db.router');
@@ -26,15 +27,16 @@ app.use(express.static('dist'));
 // Allow for parsing JSON
 app.use(express.json());
 
-app.use(passport.initialize());
-passportInit();
-
 // Used to store session data
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passportInit();
 
 const io = socketio(server);
 app.set('io', io);
