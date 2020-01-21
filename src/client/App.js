@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { CookiesProvider, withCookies } from 'react-cookie';
 
 import Home from './Components/Pages/Home';
 import SignIn from './Components/Pages/SignIn';
@@ -10,6 +11,7 @@ export default class App extends React.Component {
 
   render() {
     return (
+      <CookiesProvider>
       <BrowserRouter>
         <Switch>
           <Route path="/dashboard" component={Dashboard} />
@@ -18,6 +20,7 @@ export default class App extends React.Component {
           <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
+      </CookiesProvider>
     );
   }
 }

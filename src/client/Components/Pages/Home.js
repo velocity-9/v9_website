@@ -11,7 +11,10 @@ function TopBar() {
       <Grid item xs={1}>
         <Paper>V9 Logo</Paper>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={1}>
+        <Button variant="contained" component={RouterLink} to="/dashboard">Dashboard</Button>
+      </Grid>
+      <Grid item xs={1}>
         <Button variant="contained" component={RouterLink} to="/sign-in">Login</Button>
       </Grid>
     </React.Fragment>
@@ -19,6 +22,10 @@ function TopBar() {
 }
 
 class Home extends React.Component {
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div>
