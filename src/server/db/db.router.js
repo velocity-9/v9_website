@@ -5,8 +5,8 @@ const router = express.Router();
 
 const dbController = require('./db.controller');
 
-router.get('/getUserFunctions', dbController.getUserFunctions);
-router.get('/getComponentStatus', dbController.getComponentStatus);
-router.get('/getComponentLogs', dbController.getComponentLogs);
+router.get('/getUserFunctions', dbController.getUserFunctionsRequest);
+router.get('/getComponentStatus', dbController.getComponentStatusRequest);
+router.get('/getComponentLogs', dbController.getComponentLogsRequest);
 
 module.exports = router;

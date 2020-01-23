@@ -15,7 +15,15 @@ export default class LogTable extends React.Component {
   }
 
   getComponentLogs() {
-    fetch(`http://v9_website.ngrok.io/api/db/getComponentLogs?component=${this.state.github_repo}`)
+    fetch(`http://v9_website.ngrok.io/api/db/getComponentLogs?component=${this.state.github_repo}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true
+      }
+    })
     .then(res => res.json())
     .then(
       (result) => {
@@ -30,6 +38,14 @@ export default class LogTable extends React.Component {
     }
 
     const numEntries = 50;
+    const fixedLogText = this.state.componentLogs.map(entry => {
+      if (entry.log_text != null) {
+        return entry.log_text.split('\n');
+      }
+      return [];
+    });
+
+    console.log(fixedLogText);
 
     return (
       <div>
@@ -42,7 +58,10 @@ export default class LogTable extends React.Component {
           {this.state.componentLogs.slice(0, numEntries).map(entry => (
             <tr>
               <td>{entry.execution_num}</td>
-              <td>{entry.log_text}</td>
+              <td>{fixedLogText.map(item => (
+                <p>{item}</p>
+                ))}
+              </td>
               <td>{entry.log_error}</td>
             </tr>
           ))}

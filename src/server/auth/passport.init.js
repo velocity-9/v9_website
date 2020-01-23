@@ -4,10 +4,11 @@ const GithubStrategy = require('passport-github').Strategy;
 const { GITHUB_CONFIG } = require('../../../config');
 
 module.exports = () => {
-  passport.serializeUser((user, done) => done(null, user));
+  passport.serializeUser((user, done) => {
+    done(null, user);
+  });
   passport.deserializeUser((obj, done) => done(null, obj));
   const callback = (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
     done(null, profile);
   };
 

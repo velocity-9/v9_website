@@ -2,6 +2,8 @@
 This acts as the "controller" to parse the login data from Github, and parse it into something
 for the client.
  */
+const dbConnection = require('../db/db.connection');
+
 exports.github = (req, res) => {
   // Get the login data from the request
   const io = req.app.get('io');
@@ -15,6 +17,7 @@ exports.github = (req, res) => {
 
   // This puts the user data in the socket so that the client can access it
   io.in(req.session.socketId).emit('github', user);
+  dbConnection.createNewUser(req.user.username, 'test@test.com');
 
-  res.end();
+  res.cookie(req.cookies).redirect('http://v9_website.ngrok.io');
 };

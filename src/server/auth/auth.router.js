@@ -16,4 +16,20 @@ router.use((req, res, next) => {
 
 router.get('/github', githubAuth);
 
+router.get('/validateAuth', (req, res) => {
+  if (req.user) {
+    res.json({
+      success: true,
+      message: 'User is currently authenticated',
+      user: req.user,
+      cookies: req.cookies
+    });
+  }
+});
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('http://v9_website.ngrok.io');
+})
+
 module.exports = router;

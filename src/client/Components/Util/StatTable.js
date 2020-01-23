@@ -19,7 +19,7 @@ export default class StatTable extends React.Component {
     .then(res => res.json())
     .then(
       (result) => {
-        this.setState({ isLoaded: true, componentStats: result });
+        this.setState({ isLoaded: true, componentStats: result.reverse() });
       }
     );
   }
@@ -29,7 +29,7 @@ export default class StatTable extends React.Component {
       return (<p />);
     }
 
-    const numEntries = 50;
+    const numEntries = 5;
 
     return (
       <div>

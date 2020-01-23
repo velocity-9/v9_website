@@ -3,23 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-
-function TopBar() {
-  return (
-    <React.Fragment>
-      <Grid item xs={1}>
-        <Paper>V9 Logo</Paper>
-      </Grid>
-      <Grid item xs={1}>
-        <Button variant="contained" component={RouterLink} to="/dashboard">Dashboard</Button>
-      </Grid>
-      <Grid item xs={1}>
-        <Button variant="contained" component={RouterLink} to="/sign-in">Login</Button>
-      </Grid>
-    </React.Fragment>
-  );
-}
+import NavBar from '../Util/NavBar';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -31,11 +15,16 @@ class Home extends React.Component {
       <div>
         <Grid container spacing={1}>
           <Grid container item xs={12} spacing={3} justify="space-between">
-            <TopBar />
+            <NavBar />
           </Grid>
           <Grid container item xs={12} spacing={3} justify="center">
             <Grid item xs={6}>
               <Paper>Engaging blurb about V9!</Paper>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={6} justify="center">
+            <Grid item xs={6}>
+              <Paper>Ready to get started? Check out our <a href={'https://github.com/apps/velocity-9'}>Github app</a>. Looking for inspiration? Check out our <a href={'https://github.com/velocity-9/v9_test_app'} target={'_window'}>template code</a></Paper>
             </Grid>
           </Grid>
         </Grid>
