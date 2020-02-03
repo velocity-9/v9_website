@@ -1,0 +1,9 @@
+version: 2.1
+orbs:
+  eslint: arrai/eslint@1.3.0
+workflows:
+  build:
+    jobs:
+      - eslint/eslint:
+        files: 'src/**'
+        executor: v12
