@@ -6,4 +6,3 @@ workflows:
     jobs:
       - eslint/eslint:
         files: 'src/**'
-        executor: v12
