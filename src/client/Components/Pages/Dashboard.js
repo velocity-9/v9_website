@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'underscore';
 import { Link } from 'react-router-dom';
 import NavBar from '../Util/NavBar';
 
@@ -31,7 +30,10 @@ export default class Dashboard extends React.Component {
         throw new Error('Failed to authenticate user');
       })
       .then((responseJson) => {
-        this.setState({ isAuthenticated: true, username: responseJson.user.username });
+        this.setState({
+          isAuthenticated: true,
+          username: responseJson.user.username
+        });
         this.updateUserFunctions();
       });
   }
@@ -51,12 +53,14 @@ export default class Dashboard extends React.Component {
         (result) => {
           console.log(result);
           if (result.error) {
-            this.setState({isLoaded: true});
-          }
-
-          else {
+            this.setState({ isLoaded: true });
+          } else {
             console.log(result);
-            this.setState({isLoaded: true, userFunctions: result, numComponents: result.length});
+            this.setState({
+              isLoaded: true,
+              userFunctions: result,
+              numComponents: result.length
+            });
           }
         }
       );
@@ -83,13 +87,21 @@ export default class Dashboard extends React.Component {
       <div>
         <NavBar isAuthenticated={this.state.isAuthenticated} />
         <h1>Component Dashboard</h1>
-        <h2>Components for {this.state.username}:</h2>
+        <h2>
+          Components for
+          {this.state.username}
+          :
+        </h2>
         {this.state.numComponents === 0 ? (
           <h4>No components exist, add one to V9!</h4>
         ) : (
           <ul>
             {this.state.userFunctions.map(item => (
-              <li><Link to={`/component/${item.github_username}/${item.github_repo}`}>{item.github_repo}</Link></li>
+              <li>
+                <Link to={`/component/${item.github_username}/${item.github_repo}`}>
+                  {item.github_repo}
+                </Link>
+              </li>
             ))}
           </ul>
         )}

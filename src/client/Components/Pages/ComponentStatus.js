@@ -8,7 +8,6 @@ export default class ComponentStatus extends React.Component {
     super(props);
 
     this.state = {
-      github_username: this.props.match.params.user,
       github_repo: this.props.match.params.component,
     };
   }
@@ -16,8 +15,12 @@ export default class ComponentStatus extends React.Component {
   render() {
     return (
       <div>
-        <NavBar isAuthenticated={true} />
-        <h1>{ this.state.github_repo} Status:</h1>
+        <NavBar isAuthenticated />
+        <h1>
+          { this.state.github_repo}
+          {' '}
+          Status:
+        </h1>
         <LogTable github_repo={this.state.github_repo} />
         <br />
         <StatTable github_repo={this.state.github_repo} />

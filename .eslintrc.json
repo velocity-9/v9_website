@@ -6,10 +6,11 @@
     "node": true
   },
   "rules": {
-  "comma-dangle": "off",
-  "no-console": "off",
-  "prefer-destructuring": "off",
-  "react/destructuring-assignment": "off",
-  "react/jsx-filename-extension": "off"
-}
+    "comma-dangle": "off",
+    "no-console": "off",
+    "prefer-destructuring": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-filename-extension": "off",
+    "react/prop-types": 0
+  }
 }

@@ -6,8 +6,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import LoginButton from './LoginButton';
 
 export default class NavBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isAuthenticated: false,
       username: ''
@@ -20,22 +20,25 @@ export default class NavBar extends React.Component {
 
   validateAuth() {
     fetch('http://v9_website.ngrok.io/api/auth/validateAuth', {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true
       }
     })
-    .then(response => {
-      if (response.status === 200) return response.json();
-      throw new Error("Failed to authenticate user");
-    })
-    .then(responseJson => {
-      console.log('Authenticated!');
-      this.setState({isAuthenticated: true, username: responseJson.user.username});
-    });
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error('Failed to authenticate user');
+      })
+      .then((responseJson) => {
+        console.log('Authenticated!');
+        this.setState({
+          isAuthenticated: true,
+          username: responseJson.user.username
+        });
+      });
   }
 
   render() {
@@ -50,10 +53,13 @@ export default class NavBar extends React.Component {
           </Grid>
         ) : (
           <Grid item xs={1} />
-        ) }
+        )}
         <Grid item xs={1}>
           {this.state.isAuthenticated ? (
-            <p>Hello, {this.state.username}</p>
+            <p>
+Hello,
+              {this.state.username}
+            </p>
           ) : (
             <p />
           )}

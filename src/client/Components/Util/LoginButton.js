@@ -1,41 +1,25 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
 
-export default class LoginButton extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  handleLogout() {
-    window.open("http://v9_website.ngrok.io/api/auth/logout", "_self");
-  }
-
-  handleLogin() {
+export default function LoginButton(props) {
+  const { isAuthenticated } = props;
+  const handleLogin = () => {
     window.open('http://v9_website.ngrok.io/api/auth/github', '_self');
-  }
+  };
 
-  render() {
-    const { isAuthenticated } = this.props;
+  const handleLogout = () => {
+    window.open('http://v9_website.ngrok.io/api/auth/logout', '_self');
+  };
 
-
-    return (
-      <div>
+  return (
+    <div>
       {isAuthenticated ? (
         <div>
-        <Button variant="contained" onClick={this.handleLogout}>Log Out</Button>
+          <Button variant="contained" onClick={handleLogout}>Log Out</Button>
         </div>
-        ) : (
-          <Button variant="contained" onClick={this.handleLogin}>Sign In</Button>
-        )}
-      </div>
-    );
-  }
-
-  static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired
-  };
+      ) : (
+        <Button variant="contained" onClick={handleLogin}>Sign In</Button>
+      )}
+    </div>
+  );
 }
