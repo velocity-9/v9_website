@@ -80,9 +80,6 @@ export default class Dashboard extends React.Component {
       );
     }
 
-    console.log(this.state.userFunctions);
-    console.log(this.state.numComponents);
-
     return (
       <div>
         <NavBar isAuthenticated={this.state.isAuthenticated} />

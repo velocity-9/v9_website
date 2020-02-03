@@ -13,6 +13,19 @@ class App {
     this.express = express();
     this.server = http.createServer(this.express);
     this.configureMiddleware();
+
+    const checkVar = (input, message) => {
+      if (!input) {
+        throw new Error(message);
+      }
+    };
+
+    checkVar(process.env.GITHUB_KEY, 'Missing env variable GITHUB_KEY!');
+    checkVar(process.env.GITHUB_SECRET, 'Missing env variable GITHUB_SECRET!');
+    checkVar(process.env.SESSION_SECRET, 'Missing env variable SESSION_SECRET!');
+    checkVar(process.env.HOST, 'Missing env variable HOST!');
+    checkVar(process.env.POSTGRES_USERNAME, 'Missing env POSTGRES_USERNAME');
+    checkVar(process.env.POSTGRES_PASSWORD, 'MISSING env POSTGRES_PASSWORD');
   }
 
   start() {

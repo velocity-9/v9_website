@@ -5,8 +5,8 @@ import DatabaseRouter from './db/database.router';
 import AuthRouter from './auth/auth.router';
 
 const app = new App({ port: 8080 });
+const auth = new Authentication();
 const database = new Database();
-const auth = new Authentication(database);
 
 app.registerPassport(auth.getPassport());
 auth.initialize();

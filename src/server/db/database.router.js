@@ -17,13 +17,13 @@ class DatabaseRouter {
     }
 
     this.database.getUserComponents(req.user.username)
-    .then(data => {
-      if (data === undefined) {
-        res.json({ error: 'No components exist' });
-      } else {
-        res.json(data);
-      }
-    });
+      .then((value) => {
+        if (value.length === 0) {
+          res.json([]);
+        } else {
+          res.json(value);
+        }
+      });
   }
 
   getComponentStatusRequest(req, res) {
@@ -34,10 +34,9 @@ class DatabaseRouter {
     }
 
     this.database.getComponentStatus(req.user.username, componentName)
-    .then(data => {
-      console.log(data);
-      res.json(data);
-    });
+      .then((data) => {
+        res.json(data);
+      });
   }
 
   getComponentLogsRequest(req, res) {
@@ -49,9 +48,9 @@ class DatabaseRouter {
     }
 
     this.database.getComponentLogs(req.user.username, componentName)
-    .then(data => {
-      res.json(data);
-    });
+      .then((data) => {
+        res.json(data);
+      });
   }
 
   getRouter() {
