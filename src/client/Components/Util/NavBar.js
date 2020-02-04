@@ -57,7 +57,7 @@ export default class NavBar extends React.Component {
         <Grid item xs={1}>
           {this.state.isAuthenticated ? (
             <p>
-Hello,
+              Hello,
               {this.state.username}
             </p>
           ) : (
