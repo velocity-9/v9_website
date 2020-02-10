@@ -16,7 +16,7 @@ export default class Dashboard extends React.Component {
   componentDidMount() {
     validateAuth().then((result) => {
       this.setState(result);
-      this.updateUserFunctions();
+      this.updateUserFunctions().then();
     });
   }
 

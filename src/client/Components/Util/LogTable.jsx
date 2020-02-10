@@ -11,7 +11,7 @@ export default class LogTable extends React.Component {
   }
 
   componentDidMount() {
-    this.getComponentLogs();
+    this.getComponentLogs().then();
   }
 
   async getComponentLogs() {
@@ -30,7 +30,10 @@ export default class LogTable extends React.Component {
         throw new Error(result.statusText);
       }
 
-      const json = result.json();
+      console.log(result);
+
+      const json = await result.json();
+      console.log(json);
       this.setState({
         isLoaded: true,
         componentLogs: json
@@ -42,18 +45,17 @@ export default class LogTable extends React.Component {
 
   render() {
     if (!this.state.isLoaded) {
-      return (<p />);
+      return (<p>Loading...</p>);
     }
 
-    const numEntries = 50;
+    console.log(this.state.componentLogs);
+
     const fixedLogText = this.state.componentLogs.map((entry) => {
       if (entry.log_text != null) {
         return entry.log_text.split('\n');
       }
       return [];
     });
-
-    console.log(fixedLogText);
 
     return (
       <div>
@@ -63,18 +65,17 @@ export default class LogTable extends React.Component {
             <th>Log Text</th>
             <th>Log Error</th>
           </tr>
-          {this.state.componentLogs.slice(0, numEntries)
-            .map(entry => (
-              <tr>
-                <td>{entry.execution_num}</td>
-                <td>
-                  {fixedLogText.map(item => (
-                    <p>{item}</p>
-                  ))}
-                </td>
-                <td>{entry.log_error}</td>
-              </tr>
-            ))}
+          {this.state.componentLogs.map(entry => (
+            <tr>
+              <td>{entry.execution_num}</td>
+              <td>
+                {fixedLogText.map(item => (
+                  <p>{item}</p>
+                ))}
+              </td>
+              <td>{entry.log_error}</td>
+            </tr>
+          ))}
         </table>
       </div>
     );

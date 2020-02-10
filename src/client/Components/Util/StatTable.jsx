@@ -21,7 +21,7 @@ export default class StatTable extends React.Component {
         throw new Error(result.statusText);
       }
 
-      const json = result.json();
+      const json = await result.json();
       this.setState({ isLoaded: true, componentStats: json.reverse() });
     } catch (e) {
       console.log(e);
