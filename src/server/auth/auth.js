@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import passport from 'passport';
+
 import { Strategy as GithubStrategy } from 'passport-github';
 
 class Authentication {
@@ -10,6 +11,7 @@ class Authentication {
       clientSecret: process.env.GITHUB_SECRET,
       callbackURL: 'http://v9_website.ngrok.io/api/auth/github/callback'
     };
+    this.initialize();
   }
 
   initialize() {
@@ -30,8 +32,16 @@ class Authentication {
     this.passport.deserializeUser(deserializeUser);
   }
 
-  getPassport() {
-    return this.passport;
+  initializePassport() {
+    return this.passport.initialize();
+  }
+
+  passportSession() {
+    return this.passport.session();
+  }
+
+  authenticate(strategy) {
+    return this.passport.authenticate(strategy);
   }
 }
 

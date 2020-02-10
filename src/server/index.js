@@ -8,8 +8,7 @@ const app = new App({ port: 8080 });
 const auth = new Authentication();
 const database = new Database();
 
-app.registerPassport(auth.getPassport());
-auth.initialize();
+app.registerPassport(auth);
 
 const authRouter = new AuthRouter(auth, database);
 const dbRouter = new DatabaseRouter(database);

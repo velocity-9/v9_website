@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { Link as RouterLink } from 'react-router-dom';
+
 import LoginButton from './LoginButton';
+import validateAuth from '../../util/Util';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -15,30 +17,7 @@ export default class NavBar extends React.Component {
   }
 
   componentDidMount() {
-    this.validateAuth();
-  }
-
-  validateAuth() {
-    fetch('http://v9_website.ngrok.io/api/auth/validateAuth', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      }
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        throw new Error('Failed to authenticate user');
-      })
-      .then((responseJson) => {
-        console.log('Authenticated!');
-        this.setState({
-          isAuthenticated: true,
-          username: responseJson.user.username
-        });
-      });
+    validateAuth().then(result => this.setState(result));
   }
 
   render() {

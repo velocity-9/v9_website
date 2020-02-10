@@ -22,8 +22,8 @@ export default class AuthRouter {
       res.redirect('http://v9_website.ngrok.io');
     };
 
-    this.router.get('/github/callback', this.auth.getPassport().authenticate('github'), (req, res) => this.onLoginSuccessCallback(req, res));
-    this.router.get('/github', this.auth.getPassport().authenticate('github'));
+    this.router.get('/github/callback', this.auth.authenticate('github'), (req, res) => this.onLoginSuccessCallback(req, res));
+    this.router.get('/github', this.auth.authenticate('github'));
     this.router.get('/validateAuth', validateAuthCallback);
     this.router.get('/logout', logoutCallback);
   }

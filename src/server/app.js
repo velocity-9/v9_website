@@ -1,11 +1,10 @@
 import 'dotenv/config';
-import express from 'express';
-import session from 'express-session';
-import http from 'http';
-import passport from 'passport';
-import logger from 'morgan';
-import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
+import cookieSession from 'cookie-session';
+import express from 'express';
+import http from 'http';
+import logger from 'morgan';
+import session from 'express-session';
 
 class App {
   constructor(config) {
@@ -16,7 +15,7 @@ class App {
 
     const checkVar = (input, message) => {
       if (!input) {
-        throw new Error(message);
+        throw new TypeError(message);
       }
     };
 
@@ -33,29 +32,33 @@ class App {
       () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
   }
 
-  registerPassport(passportAuth) {
-    this.express.use(passportAuth.initialize());
-    this.express.use(passportAuth.session());
+  registerPassport(auth) {
+    this.express.use(auth.initializePassport());
+    this.express.use(auth.passportSession());
   }
 
   configureMiddleware() {
     const expressApp = this.express;
+    // Static pages are loaded from the 'dist' directory
     expressApp.use(express.static('dist'));
+    // Log level dev
     expressApp.use(logger('dev'));
+    // Allow for parsing JSON requests middleware
     expressApp.use(express.json());
+    // Cookie settings
     expressApp.use(cookieSession({
       name: 'session',
       keys: [process.env.COOKIE_SECRET],
       maxAge: 24 * 60 * 60 * 1000
     }));
+    // Parse cookies
     expressApp.use(cookieParser());
+    // Session storage settings
     expressApp.use(session({
       secret: process.env.SESSION_SECRET,
       resave: true,
       saveUninitialized: true
     }));
-    expressApp.use(passport.initialize());
-    expressApp.use(passport.session());
   }
 
   registerRouter(url, router) {

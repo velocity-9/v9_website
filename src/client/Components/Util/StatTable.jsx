@@ -14,22 +14,23 @@ export default class StatTable extends React.Component {
     this.getComponentStats();
   }
 
-  getComponentStats() {
-    fetch(`http://v9_website.ngrok.io/api/db/getComponentStatus?component=${this.state.github_repo}`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            componentStats: result.reverse()
-          });
-        }
-      );
+  async getComponentStats() {
+    try {
+      const result = await fetch(`http://v9_website.ngrok.io/api/db/getComponentStatus?component=${this.state.github_repo}`);
+      if (!result.ok) {
+        throw new Error(result.statusText);
+      }
+
+      const json = result.json();
+      this.setState({ isLoaded: true, componentStats: json.reverse() });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
     if (!this.state.isLoaded) {
-      return (<p />);
+      return (<p>Loading...</p>);
     }
 
     const numEntries = 5;

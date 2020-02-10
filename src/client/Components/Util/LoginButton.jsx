@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 export default function LoginButton(props) {
-  const { isAuthenticated } = props;
   const handleLogin = () => {
     window.open('http://v9_website.ngrok.io/api/auth/github', '_self');
   };
@@ -13,7 +12,7 @@ export default function LoginButton(props) {
 
   return (
     <div>
-      {isAuthenticated ? (
+      {props.isAuthenticated ? (
         <div>
           <Button variant="contained" onClick={handleLogout}>Log Out</Button>
         </div>

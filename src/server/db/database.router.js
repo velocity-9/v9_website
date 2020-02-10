@@ -11,18 +11,13 @@ class DatabaseRouter {
 
   getUserComponentsRequest(req, res) {
     if (!req.user) {
-      console.log('Trying to make call not authorized');
       res.sendStatus(401);
       return;
     }
 
     this.database.getUserComponents(req.user.username)
       .then((value) => {
-        if (value.length === 0) {
-          res.json([]);
-        } else {
-          res.json(value);
-        }
+        res.json(value);
       });
   }
 

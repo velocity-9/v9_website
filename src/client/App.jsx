@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 
-import Home from './Components/Pages/Home';
-import Dashboard from './Components/Pages/Dashboard';
 import ComponentStatus from './Components/Pages/ComponentStatus';
+import Dashboard from './Components/Pages/Dashboard';
+import Home from './Components/Pages/Home';
 
 export default function App() {
   return (

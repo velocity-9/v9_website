@@ -14,26 +14,30 @@ export default class LogTable extends React.Component {
     this.getComponentLogs();
   }
 
-  getComponentLogs() {
-    fetch(`http://v9_website.ngrok.io/api/db/getComponentLogs?component=${this.state.github_repo}`,
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': true
-        }
-      })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            componentLogs: result
-          });
-        }
-      );
+  async getComponentLogs() {
+    try {
+      const result = await fetch(`http://v9_website.ngrok.io/api/db/getComponentLogs?component=${this.state.github_repo}`,
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': true
+          }
+        });
+      if (!result.ok) {
+        throw new Error(result.statusText);
+      }
+
+      const json = result.json();
+      this.setState({
+        isLoaded: true,
+        componentLogs: json
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
