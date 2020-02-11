@@ -7,7 +7,7 @@ const { FRONTEND_BASE_URL } = require('./config');
 const outputDirectory = 'dist';
 
 module.exports = {
-  entry: ['babel-polyfill', './src/client/index.js'],
+  entry: ['babel-polyfill', './src/client/index.jsx'],
   output: {
     path: path.join(__dirname, outputDirectory),
     filename: 'bundle.js',
