@@ -23,8 +23,12 @@ class App {
     checkVar(process.env.GITHUB_SECRET, 'Missing env variable GITHUB_SECRET!');
     checkVar(process.env.SESSION_SECRET, 'Missing env variable SESSION_SECRET!');
     checkVar(process.env.HOST, 'Missing env variable HOST!');
+    checkVar(process.env.POSTGRES_HOST, 'Missing env POSTGRES_HOST');
+    checkVar(process.env.POSTGRES_PORT, 'Missing env POSTGRES_PORT');
+    checkVar(process.env.POSTGRES_DB, 'Missing env POSTGRES_DB');
     checkVar(process.env.POSTGRES_USERNAME, 'Missing env POSTGRES_USERNAME');
     checkVar(process.env.POSTGRES_PASSWORD, 'MISSING env POSTGRES_PASSWORD');
+    checkVar(process.env.COOKIE_SECRET, 'Missing env COOKIE_SECRET');
   }
 
   start() {
