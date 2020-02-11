@@ -48,7 +48,7 @@ export default class StatTable extends React.Component {
             <th>Deployed On</th>
           </tr>
           {this.state.componentStats.slice(0, numEntries)
-            .map(entry => (
+            .map((entry) => (
               <tr>
                 <td>{entry.received_time}</td>
                 <td>{entry.color}</td>

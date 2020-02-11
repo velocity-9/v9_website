@@ -5,18 +5,21 @@ import validateAuth from '../../util/Util';
 import NavBar from '../Util/NavBar';
 
 export default class Dashboard extends React.Component {
-  state = {
-    isAuthenticated: false,
-    username: '',
-    isLoaded: false,
-    userFunctions: {},
-    numComponents: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: false,
+      isLoaded: false,
+      numComponents: 0,
+      userFunctions: {},
+      username: ''
+    };
+  }
 
   componentDidMount() {
     validateAuth().then((result) => {
       this.setState(result);
-      this.updateUserFunctions().then();
+      return this.updateUserFunctions();
     });
   }
 
@@ -75,7 +78,7 @@ export default class Dashboard extends React.Component {
           <h4>No components exist, add one to V9!</h4>
         ) : (
           <ul>
-            {this.state.userFunctions.map(item => (
+            {this.state.userFunctions.map((item) => (
               <li>
                 <Link to={`/component/${item.github_username}/${item.github_repo}`}>
                   {item.github_repo}

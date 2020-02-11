@@ -14,31 +14,32 @@ class Database {
   }
 
   getUserComponents(username) {
-    return this.db.any(
-      'SELECT users.github_username, components.github_repo FROM users, components WHERE users.user_id = components.user_id AND users.github_username=$1',
-      username
-    );
+    const query = `SELECT users.github_username, components.github_repo FROM users, components
+                   WHERE users.user_id = components.user_id AND users.github_username=$1`;
+    return this.db.any(query, username);
   }
 
   getComponentStatus(username, componentName) {
-    return this.db.any(
-      'SELECT c.github_repo, s.received_time, s.color, s.stat_window_seconds, s.hits, s.avg_response_bytes, s.avg_ms_latency, w.worker_name FROM stats s JOIN components c on s.component_id = c.component_id JOIN users u on c.user_id = u.user_id JOIN workers w on s.worker_id = w.worker_id WHERE u.github_username = $1 AND c.github_repo = $2 ORDER BY s.received_time;',
-      [username, componentName]
-    );
+    const query = `SELECT c.github_repo, s.received_time, s.color, s.stat_window_seconds, s.hits, 
+                   s.avg_response_bytes, s.avg_ms_latency, w.worker_name FROM stats s
+                   JOIN components c on s.component_id = c.component_id JOIN users u on 
+                   c.user_id = u.user_id JOIN workers w on s.worker_id = w.worker_id WHERE 
+                   u.github_username = $1 AND c.github_repo = $2 ORDER BY s.received_time LIMIT 100;`;
+    return this.db.any(query, [username, componentName]);
   }
 
   getComponentLogs(username, componentName) {
-    return this.db.any(
-      'SELECT c.github_repo, l.execution_num, l.log_text, l.log_error FROM logs l JOIN components c on l.component_id = c.component_id JOIN users u on c.user_id = u.user_id JOIN workers w on l.worker_id = w.worker_id WHERE u.github_username = $1 AND c.github_repo = $2 ORDER BY l.received_time;',
-      [username, componentName]
-    );
+    const query = `SELECT c.github_repo, l.execution_num, l.log_text, l.log_error FROM logs l JOIN 
+                   components c on l.component_id = c.component_id JOIN users u on 
+                   c.user_id = u.user_id JOIN workers w on l.worker_id = w.worker_id WHERE 
+                   u.github_username = $1 AND c.github_repo = $2 ORDER BY l.received_time;`;
+    return this.db.any(query, [username, componentName]);
   }
 
   createNewUser(username, email) {
-    return this.db.oneOrNone(
-      'INSERT INTO v9.public.users (email, github_username) SELECT $1, $2 WHERE NOT EXISTS ( SELECT github_username FROM v9.public.users WHERE github_username = $2)',
-      [email, username]
-    );
+    const query = `INSERT INTO v9.public.users (email, github_username) SELECT $1, $2 WHERE NOT 
+                   EXISTS ( SELECT github_username FROM v9.public.users WHERE github_username = $2)`;
+    return this.db.oneOrNone(query, [email, username]);
   }
 }
 

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import LoginButton from './LoginButton';
 import validateAuth from '../../util/Util';
@@ -17,12 +17,12 @@ export default class NavBar extends React.Component {
   }
 
   componentDidMount() {
-    validateAuth().then(result => this.setState(result));
+    validateAuth().then((result) => this.setState(result));
   }
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <Grid item xs={1}>
           <Paper>V9 Logo</Paper>
         </Grid>
@@ -44,7 +44,7 @@ export default class NavBar extends React.Component {
           )}
           <LoginButton isAuthenticated={this.state.isAuthenticated} />
         </Grid>
-      </React.Fragment>
+      </>
     );
   }
 }

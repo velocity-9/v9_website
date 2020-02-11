@@ -10,7 +10,7 @@ export default class ComponentStatus extends React.Component {
 
     // The github repo is passed in as a prop via the route in the parent component (App.jsx)
     this.state = {
-      github_repo: this.props.match.params.component,
+      github_repo: this.props.match.params.component
     };
   }
 

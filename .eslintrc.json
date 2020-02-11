@@ -6,7 +6,7 @@
     "node": true
   },
   "rules": {
-    "comma-dangle": "off",
+    "comma-dangle": ["error", "never"],
     "no-console": "off",
     "prefer-destructuring": "off",
     "react/destructuring-assignment": "off",

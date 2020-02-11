@@ -11,10 +11,7 @@ class Authentication {
       clientSecret: process.env.GITHUB_SECRET,
       callbackURL: 'http://v9_website.ngrok.io/api/auth/github/callback'
     };
-    this.initialize();
-  }
 
-  initialize() {
     const githubCallback = (accessToken, refreshToken, profile, done) => {
       done(null, profile);
     };

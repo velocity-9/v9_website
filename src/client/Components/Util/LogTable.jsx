@@ -50,7 +50,7 @@ export default class LogTable extends React.Component {
 
     console.log(this.state.componentLogs);
 
-    const fixedLogText = this.state.componentLogs.map((entry) => {
+    const logTextLines = this.state.componentLogs.map((entry) => {
       if (entry.log_text != null) {
         return entry.log_text.split('\n');
       }
@@ -65,11 +65,11 @@ export default class LogTable extends React.Component {
             <th>Log Text</th>
             <th>Log Error</th>
           </tr>
-          {this.state.componentLogs.map(entry => (
+          {this.state.componentLogs.map((entry) => (
             <tr>
               <td>{entry.execution_num}</td>
               <td>
-                {fixedLogText.map(item => (
+                {logTextLines.map((item) => (
                   <p>{item}</p>
                 ))}
               </td>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import ComponentStatus from './Components/Pages/ComponentStatus';
 import Dashboard from './Components/Pages/Dashboard';

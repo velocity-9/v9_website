@@ -16,7 +16,7 @@ const validateAuth = async () => {
     return { isAuthenticated: true, username: json.user.username };
   } catch (e) {
     console.log(e);
-    throw new Error(e);
+    return { isAuthenticated: false };
   }
 };
 
