@@ -24,7 +24,7 @@ class Database {
                    s.avg_response_bytes, s.avg_ms_latency, w.worker_name FROM stats s
                    JOIN components c on s.component_id = c.component_id JOIN users u on 
                    c.user_id = u.user_id JOIN workers w on s.worker_id = w.worker_id WHERE 
-                   u.github_username = $1 AND c.github_repo = $2 ORDER BY s.received_time LIMIT 100;`;
+                   u.github_username = $1 AND c.github_repo = $2 ORDER BY s.received_time DESC LIMIT 100;`;
     return this.db.any(query, [username, componentName]);
   }
 
@@ -32,7 +32,7 @@ class Database {
     const query = `SELECT c.github_repo, l.execution_num, l.log_text, l.log_error FROM logs l JOIN 
                    components c on l.component_id = c.component_id JOIN users u on 
                    c.user_id = u.user_id JOIN workers w on l.worker_id = w.worker_id WHERE 
-                   u.github_username = $1 AND c.github_repo = $2 ORDER BY l.received_time;`;
+                   u.github_username = $1 AND c.github_repo = $2 ORDER BY l.received_time DESC;`;
     return this.db.any(query, [username, componentName]);
   }
 
