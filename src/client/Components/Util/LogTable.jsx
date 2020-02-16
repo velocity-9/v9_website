@@ -63,12 +63,16 @@ export default class LogTable extends React.Component<Props, State> {
 
     console.log(this.state.componentLogs);
 
-    const logTextLines = this.state.componentLogs.map((entry) => {
+    const tableEntries = this.state.componentLogs.map((entry) => {
       if (entry.log_text != null) {
-        return entry.log_text.split('\n');
+        return {
+          execution_num: entry.execution_num,
+          log_lines: entry.log_text.split('\n'),
+          log_error: entry.log_error
+        };
       }
-      return [];
-    });
+      return { execution_num: entry.execution_num, log_lines: [], log_error: entry.log_error };
+    }).filter((entry) => entry.execution_num !== 0);
 
     return (
       <div>
@@ -78,11 +82,11 @@ export default class LogTable extends React.Component<Props, State> {
             <th>Log Text</th>
             <th>Log Error</th>
           </tr>
-          {this.state.componentLogs.map((entry) => (
+          {tableEntries.map((entry) => (
             <tr>
               <td>{entry.execution_num}</td>
               <td>
-                {logTextLines.map((item) => (
+                {entry.log_lines.map((item) => (
                   <p>{item}</p>
                 ))}
               </td>
