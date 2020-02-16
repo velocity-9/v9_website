@@ -7,7 +7,7 @@
 
 # Javascript Files
 node_modules
-flow-typed
+flow-typed/npm
 dist
 yarn.lock
 

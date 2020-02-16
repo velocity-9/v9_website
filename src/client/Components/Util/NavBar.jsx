@@ -1,3 +1,5 @@
+// @flow
+
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -7,11 +9,21 @@ import { Link as RouterLink } from 'react-router-dom';
 import LoginButton from './LoginButton';
 import validateAuth from '../../util/Util';
 
-export default class NavBar extends React.Component {
-  constructor(props) {
+type Props = {
+  isAuthenticated: boolean
+}
+
+type State = {
+  isAuthenticated: boolean,
+  username: string,
+
+}
+
+export default class NavBar extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      isAuthenticated: false,
+      isAuthenticated: this.props.isAuthenticated,
       username: ''
     };
   }

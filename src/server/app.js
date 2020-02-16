@@ -1,3 +1,5 @@
+// @flow
+
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
@@ -6,8 +8,20 @@ import http from 'http';
 import logger from 'morgan';
 import session from 'express-session';
 
+import type { $Application, Router } from 'express';
+import type { Server } from 'http';
+
+import Authentication from './auth/auth';
+
 class App {
-  constructor(config) {
+  port: number;
+
+  express: $Application<>;
+
+  server: Server;
+
+
+  constructor(config: AppConfig) {
     this.port = config.port;
     this.express = express();
     this.server = http.createServer(this.express);
@@ -36,7 +50,7 @@ class App {
       () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
   }
 
-  registerPassport(auth) {
+  registerPassport(auth: Authentication) {
     this.express.use(auth.initializePassport());
     this.express.use(auth.passportSession());
   }
@@ -65,7 +79,7 @@ class App {
     }));
   }
 
-  registerRouter(url, router) {
+  registerRouter(url: string, router: Router<>) {
     this.express.use(url, router);
   }
 }

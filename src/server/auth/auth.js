@@ -1,9 +1,17 @@
+// @flow
+
 import 'dotenv/config';
 import passport from 'passport';
 
 import { Strategy as GithubStrategy } from 'passport-github';
 
+import type { Strategy } from 'passport';
+
 class Authentication {
+  passport: passport;
+
+  githubConfig: any;
+
   constructor() {
     this.passport = passport;
     this.githubConfig = {
@@ -37,7 +45,7 @@ class Authentication {
     return this.passport.session();
   }
 
-  authenticate(strategy) {
+  authenticate(strategy: Strategy) {
     return this.passport.authenticate(strategy);
   }
 }

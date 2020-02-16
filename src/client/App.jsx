@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';

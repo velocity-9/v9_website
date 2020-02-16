@@ -1,12 +1,25 @@
+// @flow
+
 import express from 'express';
 
+import type { Router, $Request, $Response } from 'express';
+
+import Authentication from './auth';
+import Database from '../db/database';
+
 export default class AuthRouter {
-  constructor(auth, database) {
+  router: Router<>;
+
+  auth: Authentication;
+
+  database: any;
+
+  constructor(auth: Authentication, database: Database) {
     this.router = express.Router();
     this.auth = auth;
     this.database = database;
 
-    const validateAuthCallback = (req, res) => {
+    const validateAuthCallback = (req: $Request, res: $Response) => {
       if (req.user) {
         res.json({
           success: true,
@@ -17,7 +30,7 @@ export default class AuthRouter {
       }
     };
 
-    const logoutCallback = (req, res) => {
+    const logoutCallback = (req: $Request, res: $Response) => {
       req.logout();
       res.redirect('http://v9_website.ngrok.io');
     };
@@ -28,7 +41,7 @@ export default class AuthRouter {
     this.router.get('/logout', logoutCallback);
   }
 
-  onLoginSuccessCallback(req, res) {
+  onLoginSuccessCallback(req: $Request, res: $Response) {
     const user = {
       name: req.user.username,
       photo: req.user.photos[0].value

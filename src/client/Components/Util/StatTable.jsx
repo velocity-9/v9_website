@@ -1,12 +1,27 @@
+// @flow
+
 import React from 'react';
 
-export default class StatTable extends React.Component {
-  constructor(props) {
+type Props = {
+  github_repo: ?string
+};
+
+type State = {
+  github_repo: string,
+  isLoaded: boolean,
+  componentStats: Array<ComponentStatItem>
+}
+
+export default class StatTable extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
+    const repo: string = this.props.github_repo != null ? this.props.github_repo : '';
+
     this.state = {
-      github_repo: this.props.github_repo,
-      isLoaded: false
+      github_repo: repo,
+      isLoaded: false,
+      componentStats: []
     };
   }
 

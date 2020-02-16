@@ -1,15 +1,23 @@
-import express from 'express';
+// @flow
+
+import * as express from 'express';
+
+import Database from './database';
 
 class DatabaseRouter {
-  constructor(database) {
+  router: express.Router<>;
+
+  database: any;
+
+  constructor(database: Database) {
     this.router = express.Router();
     this.database = database;
-    this.router.get('/getUserFunctions', (req, res) => this.getUserComponentsRequest(req, res));
+    this.router.get('/getUserComponents', (req, res) => this.getUserComponentsRequest(req, res));
     this.router.get('/getComponentStatus', (req, res) => this.getComponentStatusRequest(req, res));
     this.router.get('/getComponentLogs', (req, res) => this.getComponentLogsRequest(req, res));
   }
 
-  getUserComponentsRequest(req, res) {
+  getUserComponentsRequest(req: express.$Request, res: express.$Response) {
     if (!req.user) {
       res.sendStatus(401);
       return;
@@ -21,7 +29,7 @@ class DatabaseRouter {
       });
   }
 
-  getComponentStatusRequest(req, res) {
+  getComponentStatusRequest(req: express.$Request, res: express.$Response) {
     const componentName = req.query.component;
     if (!req.user) {
       res.sendStatus(401);
@@ -34,7 +42,7 @@ class DatabaseRouter {
       });
   }
 
-  getComponentLogsRequest(req, res) {
+  getComponentLogsRequest(req: express.$Request, res: express.$Response) {
     const componentName = req.query.component;
 
     if (!req.user) {
