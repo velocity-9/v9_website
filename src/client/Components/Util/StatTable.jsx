@@ -1,12 +1,29 @@
+// @flow
+
 import React from 'react';
 
-export default class StatTable extends React.Component {
-  constructor(props) {
+type StatTableProps = {
+  github_repo: string
+};
+
+type StatTableState = {
+  github_repo: string,
+  isLoaded: boolean,
+  componentStats: Array<ComponentStatEntry>
+};
+
+export default class StatTable extends React.Component<StatTableProps, StatTableState> {
+  constructor(props: StatTableProps) {
     super(props);
+
+    if (this.props.github_repo == null) {
+      throw new Error('Github repo is null!');
+    }
 
     this.state = {
       github_repo: this.props.github_repo,
-      isLoaded: false
+      isLoaded: false,
+      componentStats: []
     };
   }
 
@@ -16,7 +33,7 @@ export default class StatTable extends React.Component {
 
   async getComponentStats() {
     try {
-      const result = await fetch(`http://v9_website.ngrok.io/api/db/getComponentStatus?component=${this.state.github_repo}`);
+      const result = await fetch(`http://v9_website.ngrok.io/api/db/getComponentStats?component=${this.state.github_repo}`);
       if (!result.ok) {
         throw new Error(result.statusText);
       }

@@ -1,3 +1,5 @@
+// @flow
+
 import App from './app';
 import Database from './db/database';
 import Authentication from './auth/auth';

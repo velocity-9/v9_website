@@ -1,11 +1,28 @@
+// @flow
+
 import 'dotenv/config';
 import passport from 'passport';
 
 import { Strategy as GithubStrategy } from 'passport-github';
 
+import type { Strategy } from 'passport';
+
+type GithubConfig = {
+  clientID: string,
+  clientSecret: string,
+  callbackURL: string
+};
+
 class Authentication {
+  passport: passport;
+  githubConfig: GithubConfig;
+
   constructor() {
     this.passport = passport;
+    if (process.env.GITHUB_KEY == null || process.env.GITHUB_SECRET == null) {
+      throw new Error('GITHUB_KEY or GITHUB_SECRET is not set');
+    }
+
     this.githubConfig = {
       clientID: process.env.GITHUB_KEY,
       clientSecret: process.env.GITHUB_SECRET,
@@ -37,7 +54,7 @@ class Authentication {
     return this.passport.session();
   }
 
-  authenticate(strategy) {
+  authenticate(strategy: Strategy) {
     return this.passport.authenticate(strategy);
   }
 }

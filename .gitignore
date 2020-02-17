@@ -6,8 +6,9 @@
 **/.DS_Store
 
 # Javascript Files
-node_modules
 dist
+flow-typed/npm
+node_modules
 yarn.lock
 
 # App Files

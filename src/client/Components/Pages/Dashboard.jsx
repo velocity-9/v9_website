@@ -1,18 +1,30 @@
+// @flow
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import validateAuth from '../../util/Util';
+import validateAuth from '../../util';
 import NavBar from '../Util/NavBar';
 
-export default class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
+type DashboardState = {
+  isAuthenticated: boolean,
+  isLoaded: boolean,
+  numComponents: number,
+  username: string,
+  userComponents: Array<ComponentId>
+};
+
+export default class Dashboard extends React.Component<void, DashboardState> {
+  constructor() {
+    super();
+
+
     this.state = {
       isAuthenticated: false,
       isLoaded: false,
       numComponents: 0,
-      userFunctions: {},
-      username: ''
+      username: '',
+      userComponents: []
     };
   }
 
@@ -25,13 +37,13 @@ export default class Dashboard extends React.Component {
 
   async updateUserFunctions() {
     try {
-      const result = await fetch('http://v9_website.ngrok.io/api/db/getUserFunctions', {
+      const result = await fetch('http://v9_website.ngrok.io/api/db/getUserComponents', {
         method: 'GET',
         credentials: 'include',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': true
+          'Access-Control-Allow-Credentials': 'true'
         }
       });
 
@@ -44,7 +56,7 @@ export default class Dashboard extends React.Component {
         this.setState({ isLoaded: true });
       } else {
         console.log(json);
-        this.setState({ isLoaded: true, userFunctions: json, numComponents: json.length });
+        this.setState({ isLoaded: true, userComponents: json, numComponents: json.length });
       }
     } catch (e) {
       console.log(e);
@@ -78,7 +90,7 @@ export default class Dashboard extends React.Component {
           <h4>No components exist, add one to V9!</h4>
         ) : (
           <ul>
-            {this.state.userFunctions.map((item) => (
+            {this.state.userComponents.map((item: ComponentId) => (
               <li>
                 <Link to={`/component/${item.github_username}/${item.github_repo}`}>
                   {item.github_repo}

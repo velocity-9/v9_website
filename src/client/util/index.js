@@ -1,3 +1,5 @@
+// @flow
+
 const validateAuth = async () => {
   try {
     const response = await fetch('http://v9_website.ngrok.io/api/auth/validateAuth', {
@@ -6,7 +8,7 @@ const validateAuth = async () => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true
+        'Access-Control-Allow-Credentials': 'true'
       }
     });
     if (!response.ok) {

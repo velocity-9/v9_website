@@ -1,6 +1,12 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb"],
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "flowtype"
+  ],
   "env": {
     "browser": true,
     "node": true
@@ -8,8 +14,9 @@
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-console": "off",
+    "lines-between-class-members": ["error", "always", {"exceptAfterSingleLine": true}],
     "prefer-destructuring": "off",
     "react/destructuring-assignment": "off",
-    "react/prop-types": "off"
+    "flowtype/semi": ["error", "always"]
   }
 }

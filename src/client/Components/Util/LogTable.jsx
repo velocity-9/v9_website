@@ -1,12 +1,29 @@
+// @flow
+
 import React from 'react';
 
-export default class LogTable extends React.Component {
-  constructor(props) {
+type LogTableProps = {
+  github_repo: string
+};
+
+type LogTableState = {
+  github_repo: string,
+  isLoaded: boolean,
+  componentLogs: Array<ComponentLogEntry>
+};
+
+export default class LogTable extends React.Component<LogTableProps, LogTableState> {
+  constructor(props: LogTableProps) {
     super(props);
+
+    if (this.props.github_repo == null) {
+      throw new Error('Github repo is null!');
+    }
 
     this.state = {
       github_repo: this.props.github_repo,
-      isLoaded: false
+      isLoaded: false,
+      componentLogs: []
     };
   }
 
@@ -23,7 +40,7 @@ export default class LogTable extends React.Component {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true
+            'Access-Control-Allow-Credentials': 'true'
           }
         });
       if (!result.ok) {
