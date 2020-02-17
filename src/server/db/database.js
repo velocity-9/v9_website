@@ -4,6 +4,7 @@ import 'dotenv/config';
 import pgp from 'pg-promise';
 
 class Database {
+  // This is "any" because pg-promise doesn't have anything in flow-typed
   db: any;
 
   constructor() {

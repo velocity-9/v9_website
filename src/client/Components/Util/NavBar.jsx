@@ -7,20 +7,19 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import LoginButton from './LoginButton';
-import validateAuth from '../../util/Util';
+import validateAuth from '../../util';
 
-type Props = {
+type NavBarProps = {
   isAuthenticated: boolean
-}
+};
 
-type State = {
+type NavBarState = {
   isAuthenticated: boolean,
   username: string,
+};
 
-}
-
-export default class NavBar extends React.Component<Props, State> {
-  constructor(props: Props) {
+export default class NavBar extends React.Component<NavBarProps, NavBarState> {
+  constructor(props: NavBarProps) {
     super(props);
     this.state = {
       isAuthenticated: this.props.isAuthenticated,

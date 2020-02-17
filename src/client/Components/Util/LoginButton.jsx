@@ -3,11 +3,11 @@
 import Button from '@material-ui/core/Button';
 import React from 'react';
 
-type Props = {
+type LoginButtonProps = {
   isAuthenticated: boolean
 };
 
-export default function LoginButton(props: Props) {
+export default function LoginButton(props: LoginButtonProps) {
   const handleLogin = () => {
     window.open('http://v9_website.ngrok.io/api/auth/github', '_self');
   };

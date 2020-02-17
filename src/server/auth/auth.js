@@ -7,13 +7,22 @@ import { Strategy as GithubStrategy } from 'passport-github';
 
 import type { Strategy } from 'passport';
 
+type GithubConfig = {
+  clientID: string,
+  clientSecret: string,
+  callbackURL: string
+};
+
 class Authentication {
   passport: passport;
-
-  githubConfig: any;
+  githubConfig: GithubConfig;
 
   constructor() {
     this.passport = passport;
+    if (process.env.GITHUB_KEY == null || process.env.GITHUB_SECRET == null) {
+      throw new Error('GITHUB_KEY or GITHUB_SECRET is not set');
+    }
+
     this.githubConfig = {
       clientID: process.env.GITHUB_KEY,
       clientSecret: process.env.GITHUB_SECRET,

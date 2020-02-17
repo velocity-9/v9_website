@@ -12,7 +12,7 @@ export default class AuthRouter {
 
   auth: Authentication;
 
-  database: any;
+  database: Database;
 
   constructor(auth: Authentication, database: Database) {
     this.router = express.Router();

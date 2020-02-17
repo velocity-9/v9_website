@@ -2,22 +2,26 @@
 
 import React from 'react';
 
-type Props = {
-  github_repo: ?string
+type LogTableProps = {
+  github_repo: string
 };
 
-type State = {
+type LogTableState = {
   github_repo: string,
   isLoaded: boolean,
-  componentLogs: Array<ComponentLogItem>
+  componentLogs: Array<ComponentLogEntry>
 };
 
-export default class LogTable extends React.Component<Props, State> {
-  constructor(props: Props) {
+export default class LogTable extends React.Component<LogTableProps, LogTableState> {
+  constructor(props: LogTableProps) {
     super(props);
 
+    if (this.props.github_repo == null) {
+      throw new Error('Github repo is null!');
+    }
+
     this.state = {
-      github_repo: this.props.github_repo != null ? this.props.github_repo : '',
+      github_repo: this.props.github_repo,
       isLoaded: false,
       componentLogs: []
     };

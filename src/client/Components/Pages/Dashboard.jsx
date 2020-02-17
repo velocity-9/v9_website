@@ -3,18 +3,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import validateAuth from '../../util/Util';
+import validateAuth from '../../util';
 import NavBar from '../Util/NavBar';
 
-type State = {
+type DashboardState = {
   isAuthenticated: boolean,
   isLoaded: boolean,
   numComponents: number,
   username: string,
-  userComponents: Array<UserComponentItem>
+  userComponents: Array<ComponentId>
 };
 
-export default class Dashboard extends React.Component<void, State> {
+export default class Dashboard extends React.Component<void, DashboardState> {
   constructor() {
     super();
 
@@ -90,7 +90,7 @@ export default class Dashboard extends React.Component<void, State> {
           <h4>No components exist, add one to V9!</h4>
         ) : (
           <ul>
-            {this.state.userComponents.map((item: UserComponentItem) => (
+            {this.state.userComponents.map((item: ComponentId) => (
               <li>
                 <Link to={`/component/${item.github_username}/${item.github_repo}`}>
                   {item.github_repo}

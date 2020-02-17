@@ -2,24 +2,26 @@
 
 import React from 'react';
 
-type Props = {
-  github_repo: ?string
+type StatTableProps = {
+  github_repo: string
 };
 
-type State = {
+type StatTableState = {
   github_repo: string,
   isLoaded: boolean,
-  componentStats: Array<ComponentStatItem>
-}
+  componentStats: Array<ComponentStatEntry>
+};
 
-export default class StatTable extends React.Component<Props, State> {
-  constructor(props: Props) {
+export default class StatTable extends React.Component<StatTableProps, StatTableState> {
+  constructor(props: StatTableProps) {
     super(props);
 
-    const repo: string = this.props.github_repo != null ? this.props.github_repo : '';
+    if (this.props.github_repo == null) {
+      throw new Error('Github repo is null!');
+    }
 
     this.state = {
-      github_repo: repo,
+      github_repo: this.props.github_repo,
       isLoaded: false,
       componentStats: []
     };

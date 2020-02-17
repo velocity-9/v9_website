@@ -5,14 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import NavBar from '../Util/NavBar';
-import validateAuth from '../../util/Util';
+import validateAuth from '../../util';
 
-type State = {
+type HomeState = {
   isAuthenticated: boolean,
   username: string
 };
 
-export default class Home extends React.Component<void, State> {
+export default class Home extends React.Component<void, HomeState> {
   constructor() {
     super();
     this.state = {

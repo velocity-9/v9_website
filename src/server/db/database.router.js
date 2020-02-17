@@ -6,8 +6,7 @@ import Database from './database';
 
 class DatabaseRouter {
   router: express.Router<>;
-
-  database: any;
+  database: Database;
 
   constructor(database: Database) {
     this.router = express.Router();
