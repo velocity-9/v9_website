@@ -24,7 +24,7 @@ class Database {
     return this.db.any(query, username);
   }
 
-  getComponentStatus(username: string, componentName: string) {
+  getComponentStats(username: string, componentName: string) {
     const query = `SELECT c.github_repo, s.received_time, s.color, s.stat_window_seconds, s.hits, 
                    s.avg_response_bytes, s.avg_ms_latency, w.worker_name FROM stats s
                    JOIN components c on s.component_id = c.component_id JOIN users u on 

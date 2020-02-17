@@ -12,7 +12,7 @@ class DatabaseRouter {
     this.router = express.Router();
     this.database = database;
     this.router.get('/getUserComponents', (req, res) => this.getUserComponentsRequest(req, res));
-    this.router.get('/getComponentStatus', (req, res) => this.getComponentStatusRequest(req, res));
+    this.router.get('/getComponentStats', (req, res) => this.getComponentStatsRequest(req, res));
     this.router.get('/getComponentLogs', (req, res) => this.getComponentLogsRequest(req, res));
   }
 
@@ -28,14 +28,14 @@ class DatabaseRouter {
       });
   }
 
-  getComponentStatusRequest(req: express.$Request, res: express.$Response) {
+  getComponentStatsRequest(req: express.$Request, res: express.$Response) {
     const componentName = req.query.component;
     if (!req.user) {
       res.sendStatus(401);
       return;
     }
 
-    this.database.getComponentStatus(req.user.username, componentName)
+    this.database.getComponentStats(req.user.username, componentName)
       .then((data) => {
         res.json(data);
       });

@@ -33,7 +33,7 @@ export default class StatTable extends React.Component<StatTableProps, StatTable
 
   async getComponentStats() {
     try {
-      const result = await fetch(`http://v9_website.ngrok.io/api/db/getComponentStatus?component=${this.state.github_repo}`);
+      const result = await fetch(`http://v9_website.ngrok.io/api/db/getComponentStats?component=${this.state.github_repo}`);
       if (!result.ok) {
         throw new Error(result.statusText);
       }
