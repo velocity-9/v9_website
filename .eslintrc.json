@@ -14,7 +14,9 @@
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-console": "off",
+    "lines-between-class-members": ["error", "always", {"exceptAfterSingleLine": true}],
     "prefer-destructuring": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "flowtype/semi": ["error", "always"]
   }
 }

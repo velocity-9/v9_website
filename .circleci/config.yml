@@ -16,5 +16,14 @@ jobs:
           name: npm-add-eslint
           command: 'sudo npm install -g eslint'
       - run:
+          - name: npm-add-flow-typed
+          - command: 'sudo npm install -g flow-typed'
+      - run:
+          - name: install-flow-typed
+          - command: 'flow-typed install'
+      - run:
+          - name: flow-check
+          - command: 'npm run flow'
+      - run:
           name: eslint
           command: "eslint --max-warnings 0 './src/**/*.js'"

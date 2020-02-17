@@ -1,9 +1,9 @@
-declare type UserComponentItem = {
+declare type ComponentId = {
   github_username: string,
   github_repo: string
 };
 
-declare type ComponentStatItem = {
+declare type ComponentStatEntry = {
   github_repo: string,
   received_time: string,
   color: string,
@@ -14,7 +14,7 @@ declare type ComponentStatItem = {
   worker_name: string
 };
 
-declare type ComponentLogItem = {
+declare type ComponentLogEntry = {
   github_repo: string,
   execution_num: number,
   log_text: string,
