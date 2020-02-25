@@ -3,14 +3,22 @@ declare type ComponentId = {
   github_repo: string
 };
 
-declare type ComponentStatEntry = {
-  github_repo: string,
-  received_time: string,
+declare type ComponentDashboardEntry = {
+  deploymentIntention: string,
+  receivedTime: string,
   color: string,
-  stat_window_seconds: number,
-  hits: number,
-  avg_response_bytes: number,
+  isDeploying: boolean,
+  deploymentReason: string
+};
+
+declare type ComponentStatEntry = {
   avg_ms_latency: number,
+  avg_response_bytes: number,
+  color: string,
+  github_repo: string,
+  hits: number,
+  received_time: string,
+  stat_window_seconds: number,
   worker_name: string
 };
 
@@ -23,4 +31,9 @@ declare type ComponentLogEntry = {
 
 declare type AppConfig = {
   port: number
+};
+
+declare type PageProps = {
+  username: ?string,
+  isAuthenticated: boolean
 };

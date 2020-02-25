@@ -24,6 +24,22 @@ class Database {
     return this.db.any(query, username);
   }
 
+  getComponentDashboardInfo(username: string, componentName: string) {
+    const query = `SELECT c.github_repo, c.deployment_intention, s.received_time, s.color 
+                   FROM stats s JOIN components c on s.component_id = c.component_id 
+                   JOIN users u on c.user_id = u.user_id WHERE u.github_username = $1 AND 
+                   c.github_repo = $2 ORDER BY s.received_time DESC LIMIT 1;`;
+    return this.db.oneOrNone(query, [username, componentName]);
+  }
+
+  getComponentDeployingStatus(username: string, componentName: string) {
+    const query = `SELECT d.deployment_start_time, d.deployment_reason FROM deploying d JOIN 
+                   components c on d.component_id = c.component_id JOIN 
+                   users u on c.user_id = c.user_id WHERE u.github_username = $1 
+                   AND c.github_repo = $2;`;
+    return this.db.oneOrNone(query, [username, componentName]);
+  }
+
   getComponentStats(username: string, componentName: string) {
     const query = `SELECT c.github_repo, s.received_time, s.color, s.stat_window_seconds, s.hits, 
                    s.avg_response_bytes, s.avg_ms_latency, w.worker_name FROM stats s
