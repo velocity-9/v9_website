@@ -1,15 +1,16 @@
 // @flow
 
 import 'dotenv/config';
+import http from 'http';
+import type { Server } from 'http';
+
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
-import http from 'http';
-import logger from 'morgan';
-import session from 'express-session';
-
 import type { $Application, Router } from 'express';
-import type { Server } from 'http';
+import session from 'express-session';
+import logger from 'morgan';
+
 
 import Authentication from './auth/auth';
 

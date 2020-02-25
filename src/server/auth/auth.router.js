@@ -1,11 +1,11 @@
 // @flow
 
 import express from 'express';
-
 import type { Router, $Request, $Response } from 'express';
 
 import Authentication from './auth';
-import Database from '../db/database';
+
+import Database from 'server/db/database';
 
 export default class AuthRouter {
   router: Router<>;

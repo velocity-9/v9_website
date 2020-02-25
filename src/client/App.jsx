@@ -4,14 +4,14 @@ import React from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import ComponentStatusPage from 'client/Components/Pages/ComponentStatusPage/ComponentStatusPage';
 import DashboardPage from 'client/Components/Pages/Dashboard/DashboardPage';
+import HomePage from 'client/Components/Pages/Home/HomePage';
 import ProtectedRoute from 'client/Components/Util/ProtectedRoute';
 import { validateAuth } from 'client/util';
-import ComponentStatusPage from 'client/Components/Pages/ComponentStatusPage/ComponentStatusPage';
-import HomePage from 'client/Components/Pages/Home/HomePage';
 
 type AppState = {
-  username?: ?string,
+  username?: string,
   isAuthenticated: boolean
 };
 
@@ -19,7 +19,6 @@ export default class App extends React.Component<void, AppState> {
   constructor() {
     super();
     this.state = {
-      username: null,
       isAuthenticated: false
     };
   }

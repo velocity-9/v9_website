@@ -1,10 +1,10 @@
 // @flow
 
-import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import React from 'react';
 
-import NavBar from 'client/Components/Util/NavBar';
 import ComponentTable from 'client/Components/Pages/Dashboard/ComponentTable';
+import NavBar from 'client/Components/Util/NavBar';
 
 export default function (props: PageProps) {
   return (

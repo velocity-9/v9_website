@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-
 import type { Match } from 'react-router-dom';
 
 import LogTable from 'client/Components/Util/LogTable';

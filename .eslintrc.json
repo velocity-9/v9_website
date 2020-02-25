@@ -21,6 +21,11 @@
   "rules": {
     "comma-dangle": ["error", "never"],
     "flowtype/semi": ["error", "always"],
+    "import/order": ["error", {
+      "alphabetize": {"order":  "asc"},
+      "groups":  ["builtin", "external", "parent", "sibling", "index"],
+      "newlines-between": "always"
+    }],
     "lines-between-class-members": ["error", "always", {"exceptAfterSingleLine": true}],
     "no-console": "off",
     "prefer-destructuring": "off",

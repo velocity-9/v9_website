@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-
-import { makeGetRequest } from 'client/util';
-import ActionButton from 'client/Components/Pages/Dashboard/ActionButton';
 import { Link } from 'react-router-dom';
+
+import ActionButton from 'client/Components/Pages/Dashboard/ActionButton';
+import { makeGetRequest } from 'client/util';
 
 type ComponentStatusRowProps = {
   githubUsername: string,
@@ -12,34 +12,21 @@ type ComponentStatusRowProps = {
 };
 
 type ComponentStatusRowState = {
-  isLoaded: boolean,
-  componentStatus: string
+  componentStatus?: string
 };
 
 class ComponentStatusRow extends React.Component<ComponentStatusRowProps, ComponentStatusRowState> {
-  constructor(props: ComponentStatusRowProps) {
-    super(props);
-    this.state = {
-      isLoaded: false,
-      componentStatus: ''
-    };
-  }
-
   componentDidMount(): void {
-    const url = `http://v9_website.ngrok.io/api/db/getComponentDashboardInfo?component=${this.props.githubRepo}`;
+    const url = `/api/db/getComponentDashboardInfo?component=${this.props.githubRepo}`;
     makeGetRequest(url).then((result) => {
-      let deploymentString = result.isDeploying ? 'Deploying' : '';
-      if (deploymentString === '') {
-        console.log('setting dep string');
-        deploymentString = result.deploymentIntention;
-      }
-
-      this.setState({ isLoaded: true, componentStatus: deploymentString });
+      this.setState({
+        componentStatus: result.isDeploying ? 'Deploying' : result.deploymentIntention
+      });
     });
   }
 
   render() {
-    if (!this.state.isLoaded) {
+    if (this.state.componentStatus === null || this.state.componentStatus === undefined) {
       return (
         <tr>
           <td>Loading</td>

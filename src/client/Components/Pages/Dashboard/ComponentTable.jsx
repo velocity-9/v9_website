@@ -1,8 +1,9 @@
 // @flow
 
 import React from 'react';
-import { makeGetRequest } from 'client/util';
+
 import ComponentStatusRow from 'client/Components/Pages/Dashboard/ComponentStatusRow';
+import { makeGetRequest } from 'client/util';
 
 type ComponentTableProps = {};
 
@@ -22,7 +23,7 @@ class ComponentTable extends React.Component<ComponentTableProps, ComponentTable
   }
 
   componentDidMount(): void {
-    const url = 'http://v9_website.ngrok.io/api/db/getUserComponents';
+    const url = '/api/db/getUserComponents';
     makeGetRequest(url).then((result) => {
       this.setState({ isLoaded: true, userComponents: result });
     });
