@@ -11,7 +11,7 @@ export default function HomePage(props: PageProps) {
     <div>
       <Grid container spacing={1}>
         <Grid container item xs={12} spacing={3} justify="space-between">
-          <NavBar isAuthenticated={props.isAuthenticated} username={props.username} />
+          <NavBar username={props.username} />
         </Grid>
         <Grid container item xs={12} spacing={3} justify="center">
           <Grid item xs={6}>

@@ -9,7 +9,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import LoginButton from './LoginButton';
 
 type NavBarProps = {
-  isAuthenticated: boolean,
   username: ?string
 };
 
@@ -19,7 +18,7 @@ export default function (props: NavBarProps) {
       <Grid item xs={1}>
         <Paper>V9 Logo</Paper>
       </Grid>
-      {props.isAuthenticated ? (
+      {props.username !== null ? (
         <Grid item xs={1}>
           <Button variant="contained" component={RouterLink} to="/dashboard">Dashboard</Button>
         </Grid>
@@ -27,7 +26,7 @@ export default function (props: NavBarProps) {
         <Grid item xs={1} />
       )}
       <Grid item xs={1}>
-        {props.isAuthenticated ? (
+        {props.username !== null ? (
           <p>
             Hello,
             {props.username}
@@ -35,7 +34,7 @@ export default function (props: NavBarProps) {
         ) : (
           <p />
         )}
-        <LoginButton isAuthenticated={props.isAuthenticated} />
+        <LoginButton isAuthenticated={props.username !== null} />
       </Grid>
     </Grid>
   );

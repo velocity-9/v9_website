@@ -10,7 +10,7 @@ export default function (props: PageProps) {
   return (
     <div>
       <Grid container spacing={3}>
-        <NavBar isAuthenticated={props.isAuthenticated} username={props.username} />
+        <NavBar username={props.username} />
         <Grid container item xs={12} spacing={1} justify="center">
           <h1>Component Dashboard</h1>
         </Grid>

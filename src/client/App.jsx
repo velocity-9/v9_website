@@ -11,26 +11,20 @@ import ProtectedRoute from 'client/Components/Util/ProtectedRoute';
 import { validateAuth } from 'client/util';
 
 type AppState = {
-  username?: string,
-  isAuthenticated: boolean
+  username: ?string
 };
 
 export default class App extends React.Component<void, AppState> {
   constructor() {
     super();
     this.state = {
-      isAuthenticated: false
+      username: null
     };
   }
 
   componentDidMount(): void {
     validateAuth().then((result: AppState) => {
-      if (result.isAuthenticated) {
-        this.setState({
-          username: result.username,
-          isAuthenticated: result.isAuthenticated
-        });
-      }
+      this.setState(result);
     });
   }
 
@@ -39,15 +33,14 @@ export default class App extends React.Component<void, AppState> {
       <CookiesProvider>
         <BrowserRouter>
           <Switch>
-            <ProtectedRoute path="/dashboard" component={DashboardPage} isAuthenticated={this.state.isAuthenticated} username={this.state.username} />
-            <ProtectedRoute path="/component/:user/:component" component={ComponentStatusPage} isAuthenticated={this.state.isAuthenticated} username={this.state.username} />
+            <ProtectedRoute path="/dashboard" component={DashboardPage} username={this.state.username} />
+            <ProtectedRoute path="/component/:user/:component" component={ComponentStatusPage} username={this.state.username} />
             <Route
               path="/"
               render={(props) => (
                 <HomePage
                   {...props}
                   username={this.state.username}
-                  isAuthenticated={this.state.isAuthenticated}
                 />
               )}
             />

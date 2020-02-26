@@ -2,7 +2,7 @@
 
 import * as express from 'express';
 
-import Database from './database';
+import Database from 'server/db/database';
 
 class DatabaseRouter {
   router: express.Router<>;
@@ -44,7 +44,7 @@ class DatabaseRouter {
       receivedTime: dashboardInfo.received_time,
       color: dashboardInfo.color,
       isDeploying: deploying != null,
-      deploymentReason: deploying != null ? deploying.deployment_reason : ''
+      deploymentReason: deploying != null ? deploying.deployment_reason : null
     };
 
     res.json(result);

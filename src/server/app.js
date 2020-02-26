@@ -11,16 +11,12 @@ import type { $Application, Router } from 'express';
 import session from 'express-session';
 import logger from 'morgan';
 
-
-import Authentication from './auth/auth';
+import Authentication from 'server/auth/auth';
 
 class App {
   port: number;
-
   express: $Application<>;
-
   server: Server;
-
 
   constructor(config: AppConfig) {
     this.port = config.port;

@@ -12,14 +12,17 @@ declare type ComponentDashboardEntry = {
 };
 
 declare type ComponentStatEntry = {
+  worker_name: string,
+  github_repo: string,
+
+  hits: number,
+  color: string,
+
   avg_ms_latency: number,
   avg_response_bytes: number,
-  color: string,
-  github_repo: string,
-  hits: number,
+
   received_time: string,
   stat_window_seconds: number,
-  worker_name: string
 };
 
 declare type ComponentLogEntry = {
@@ -34,6 +37,5 @@ declare type AppConfig = {
 };
 
 declare type PageProps = {
-  username: ?string,
-  isAuthenticated: boolean
+  username: ?string
 };

@@ -34,9 +34,9 @@ export async function validateAuth() {
       throw new Error(response.statusText);
     }
     const json = await response.json();
-    return { isAuthenticated: true, username: json.user.username };
+    return { username: json.user.username };
   } catch (e) {
     console.log(e);
-    return { isAuthenticated: false };
+    return { username: null };
   }
 }
