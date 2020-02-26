@@ -12,24 +12,37 @@ type ComponentStatusRowProps = {
 };
 
 type ComponentStatusRowState = {
-  componentStatus: ?string
+  componentStatus: ?string,
+  timer: any
 };
 
 class ComponentStatusRow extends React.Component<ComponentStatusRowProps, ComponentStatusRowState> {
   constructor(props: ComponentStatusRowProps) {
     super(props);
     this.state = {
-      componentStatus: null
+      componentStatus: null,
+      timer: null
     };
   }
 
   componentDidMount(): void {
+    this.update();
+  }
+
+  componentWillUnmount(): void {
+    clearTimeout(this.state.timer);
+  }
+
+  update() {
     const url = `/api/db/getComponentDashboardInfo?component=${this.props.githubRepo}`;
     makeGetRequest(url).then((result) => {
       this.setState({
         componentStatus: result.isDeploying ? 'Deploying' : result.deploymentIntention
       });
     });
+
+    const timer = setTimeout(this.update.bind(this), 5000);
+    this.setState({ timer });
   }
 
   render() {
