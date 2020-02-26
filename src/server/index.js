@@ -1,10 +1,12 @@
 // @flow
 
-import App from './app';
-import Database from './db/database';
-import Authentication from './auth/auth';
-import DatabaseRouter from './db/database.router';
-import AuthRouter from './auth/auth.router';
+import 'module-alias/register';
+
+import App from 'server/app';
+import Authentication from 'server/auth/auth';
+import AuthRouter from 'server/auth/auth.router';
+import Database from 'server/db/database';
+import DatabaseRouter from 'server/db/database.router';
 
 const app = new App({ port: 8080 });
 const auth = new Authentication();

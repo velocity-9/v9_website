@@ -11,12 +11,25 @@
     "browser": true,
     "node": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules","src/"]
+      }
+    }
+  },
   "rules": {
     "comma-dangle": ["error", "never"],
-    "no-console": "off",
+    "flowtype/semi": ["error", "always"],
+    "import/order": ["error", {
+      "alphabetize": {"order":  "asc"},
+      "groups":  ["builtin", "external", "parent", "sibling", "index"],
+      "newlines-between": "always"
+    }],
     "lines-between-class-members": ["error", "always", {"exceptAfterSingleLine": true}],
+    "no-console": "off",
     "prefer-destructuring": "off",
     "react/destructuring-assignment": "off",
-    "flowtype/semi": ["error", "always"]
+    "react/jsx-props-no-spreading": ["error", {"custom": "ignore"}]
   }
 }

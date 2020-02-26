@@ -2,10 +2,8 @@
 
 import 'dotenv/config';
 import passport from 'passport';
-
-import { Strategy as GithubStrategy } from 'passport-github';
-
 import type { Strategy } from 'passport';
+import { Strategy as GithubStrategy } from 'passport-github';
 
 type GithubConfig = {
   clientID: string,
