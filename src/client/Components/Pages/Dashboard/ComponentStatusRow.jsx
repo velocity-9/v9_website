@@ -12,10 +12,17 @@ type ComponentStatusRowProps = {
 };
 
 type ComponentStatusRowState = {
-  componentStatus?: string
+  componentStatus: ?string
 };
 
 class ComponentStatusRow extends React.Component<ComponentStatusRowProps, ComponentStatusRowState> {
+  constructor(props: ComponentStatusRowProps) {
+    super(props);
+    this.state = {
+      componentStatus: null
+    };
+  }
+
   componentDidMount(): void {
     const url = `/api/db/getComponentDashboardInfo?component=${this.props.githubRepo}`;
     makeGetRequest(url).then((result) => {

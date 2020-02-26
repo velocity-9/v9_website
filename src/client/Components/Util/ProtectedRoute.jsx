@@ -8,9 +8,8 @@ export default function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={(props) => (
         {
-          ...rest.isAuthenticated ? (
+          ...rest.username !== null ? (
             <Component
-              isAuthenticated={rest.isAuthenticated}
               username={rest.username}
               {...props}
             />
