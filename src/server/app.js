@@ -4,6 +4,7 @@ import 'dotenv/config';
 import http from 'http';
 import type { Server } from 'http';
 
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
@@ -60,6 +61,8 @@ class App {
     expressApp.use(logger('dev'));
     // Allow for parsing JSON requests middleware
     expressApp.use(express.json());
+    // Allow for parsing request bodies
+    expressApp.use(bodyParser.urlencoded({ extended: true }));
     // Cookie settings
     expressApp.use(cookieSession({
       name: 'session',
