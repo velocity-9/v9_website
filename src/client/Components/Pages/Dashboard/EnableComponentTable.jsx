@@ -6,20 +6,19 @@ import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import React from 'react';
 
-import ComponentStatusRow from 'client/Components/Pages/Dashboard/ComponentStatusRow';
+import EnableComponentRow from 'client/Components/Pages/Dashboard/EnableComponentRow';
 
-
-type ComponentTableProps = {
+type EnableComponentTableProps = {
   components: Array<ComponentDashboardEntry>
 };
 
-export default function ComponentTable(props: ComponentTableProps) {
+export default function ComponentTable(props: EnableComponentTableProps) {
   return (
     <TableContainer component={Paper}>
       <Table>
         <TableBody>
           {props.components.map((item: ComponentDashboardEntry) => (
-            <ComponentStatusRow component={item} />
+            <EnableComponentRow component={item} />
           ))}
         </TableBody>
       </Table>

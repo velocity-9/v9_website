@@ -18,6 +18,19 @@ export async function makeGetRequest<T>(apiUrl: string): Promise<T> {
   return response.json();
 }
 
+export function makePostRequest(apiUrl: string, body: string): Promise<Response> {
+  return fetch(apiUrl, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': 'true'
+    },
+    body
+  });
+}
+
 export async function validateAuth() {
   try {
     const response = await fetch('http://v9_website.ngrok.io/api/auth/validateAuth', {

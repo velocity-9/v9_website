@@ -1,65 +1,54 @@
 // @flow
 
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import React from 'react';
 
+import { makePostRequest } from 'client/util';
+
 type ActionButtonProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  componentName: string,
-  status: string
+  component: ComponentDashboardEntry
 };
 
-type ActionButtonState = {
-  status: string,
-  isActive: boolean
-};
+export default function ActionButton(props: ActionButtonProps) {
+  const [open, setOpen] = React.useState(false);
 
-export default class ActionButton extends React.Component<ActionButtonProps, ActionButtonState> {
-  constructor(props: ActionButtonProps) {
-    super(props);
-    this.state = {
-      status: this.props.status,
-      isActive: true
-    };
+  const changeButtonState = async () => {
+    const newDeploymentIntention = props.component.deploymentIntention === 'active' ? 'paused' : 'active';
 
-    (this: any).changeButtonState = this.changeButtonState.bind(this);
-  }
-
-  async changeButtonState() {
-    if (this.state.status === 'active') {
-      await new Promise((resolve) => this.setState({ status: 'paused', isActive: false }, resolve));
-    } else {
-      await new Promise((resolve) => this.setState({ status: 'active', isActive: false }, resolve));
-    }
-
-    const apiUrl = '/api/db/sendDeploymentIntention';
+    const apiUrl = '/api/component/sendDeploymentIntention';
     const body = {
-      componentName: this.props.componentName,
-      deploymentIntention: this.state.status
+      componentName: props.component.componentName,
+      deploymentIntention: newDeploymentIntention
     };
 
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': 'true'
-      },
-      body: JSON.stringify(body)
-    });
-
+    const response = await makePostRequest(apiUrl, JSON.stringify(body));
     if (!response.ok) {
       console.log('Failed to make secure POST call');
-      throw new Error('Error making POST call!');
+      setOpen(true);
     }
-  }
+  };
 
-  render() {
-    return (
-      <Button variant="contained" onClick={this.changeButtonState} disabled={!this.state.isActive}>
-        {this.state.status === 'active' ? 'Pause' : 'Activate'}
+  const handleClose = (event?: Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button color="primary" variant="contained" onClick={changeButtonState} disabled={props.component.isDeploying}>
+        {props.component.deploymentIntention === 'active' ? 'Pause' : 'Activate'}
       </Button>
-    );
-  }
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="error">
+          Failed to change component state
+        </MuiAlert>
+      </Snackbar>
+    </div>
+
+  );
 }

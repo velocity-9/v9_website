@@ -19,16 +19,16 @@ class Database {
   }
 
   getUserComponents(username: string) {
-    const query = `SELECT users.github_username, components.github_repo FROM users, components
+    const query = `SELECT users.github_username, components.github_repo, components.deployment_intention FROM users, components
                    WHERE users.user_id = components.user_id AND users.github_username=$1`;
     return this.db.any(query, username);
   }
 
-  getComponentDashboardInfo(username: string, componentName: string) {
-    const query = `SELECT c.github_repo, c.deployment_intention, s.received_time, s.color 
-                   FROM stats s JOIN components c on s.component_id = c.component_id 
+  getComponentColor(username: string, componentName: string) {
+    const query = `SELECT s.color FROM stats s JOIN components c on s.component_id = c.component_id 
                    JOIN users u on c.user_id = u.user_id WHERE u.github_username = $1 AND 
                    c.github_repo = $2 ORDER BY s.received_time DESC LIMIT 1;`;
+
     return this.db.oneOrNone(query, [username, componentName]);
   }
 

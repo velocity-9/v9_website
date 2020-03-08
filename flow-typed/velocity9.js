@@ -4,11 +4,11 @@ declare type ComponentId = {
 };
 
 declare type ComponentDashboardEntry = {
+  username: string,
+  componentName: string,
   deploymentIntention: string,
-  receivedTime: string,
   color: string,
-  isDeploying: boolean,
-  deploymentReason: string
+  isDeploying: boolean
 };
 
 declare type ComponentStatEntry = {
@@ -30,6 +30,11 @@ declare type ComponentLogEntry = {
   execution_num: number,
   log_text: string,
   log_error: string,
+};
+
+declare type ComponentStatusBundle = {
+  componentName: string,
+  componentLogs: ComponentLogEntry
 };
 
 declare type AppConfig = {
