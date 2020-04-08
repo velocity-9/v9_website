@@ -10,11 +10,19 @@ import { Link } from 'react-router-dom';
 import ActionButton from 'client/Components/Pages/Dashboard/ActionButton';
 
 type ComponentStatusRowProps = {
-  component: ComponentDashboardEntry
+  component: DeployedComponentEntry
 };
 
 export default function ComponentStatusRow(props: ComponentStatusRowProps) {
-  const componentStatus = props.component.isDeploying ? 'Deploying' : props.component.deploymentIntention;
+  let componentStatus = 'Pending';
+  if (props.component.isDeploying) {
+    componentStatus = 'Deploying';
+  } else if (props.component.deploymentIntention === 'paused') {
+    componentStatus = 'Paused';
+  } else if (props.component.deploymentIntention === 'active' && props.component.isRunning) {
+    componentStatus = 'Running';
+  }
+
   return (
     <TableRow>
       <TableCell><Link to={`/component/${props.component.username}/${props.component.componentName}`}><Button color="primary">{ props.component.componentName }</Button></Link></TableCell>

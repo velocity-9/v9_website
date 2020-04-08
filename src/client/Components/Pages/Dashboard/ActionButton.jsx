@@ -8,7 +8,7 @@ import React from 'react';
 import { makePostRequest } from 'client/util';
 
 type ActionButtonProps = {
-  component: ComponentDashboardEntry
+  component: DeployedComponentEntry
 };
 
 export default function ActionButton(props: ActionButtonProps) {
@@ -38,9 +38,11 @@ export default function ActionButton(props: ActionButtonProps) {
     setOpen(false);
   };
 
+  const shouldEnableButton = props.component.isDeploying || (props.component.deploymentIntention === 'active' && !props.component.isDeploying && !props.component.isRunning);
+
   return (
     <div>
-      <Button color="primary" variant="contained" onClick={changeButtonState} disabled={props.component.isDeploying}>
+      <Button color="primary" variant="contained" onClick={changeButtonState} disabled={shouldEnableButton}>
         {props.component.deploymentIntention === 'active' ? 'Pause' : 'Activate'}
       </Button>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>

@@ -1,14 +1,15 @@
-declare type ComponentId = {
-  github_username: string,
-  github_repo: string
-};
-
-declare type ComponentDashboardEntry = {
+declare type DeployedComponentEntry = {
   username: string,
   componentName: string,
   deploymentIntention: string,
   color: string,
-  isDeploying: boolean
+  isDeploying: boolean,
+  isRunning: boolean
+};
+
+declare type DashboardComponents = {
+  components: Array<DeployedComponentEntry>,
+  notComponents: Array<string>
 };
 
 declare type ComponentStatEntry = {
@@ -30,11 +31,6 @@ declare type ComponentLogEntry = {
   execution_num: number,
   log_text: string,
   log_error: string,
-};
-
-declare type ComponentStatusBundle = {
-  componentName: string,
-  componentLogs: ComponentLogEntry
 };
 
 declare type AppConfig = {

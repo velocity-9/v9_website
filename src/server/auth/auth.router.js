@@ -48,8 +48,13 @@ export default class AuthRouter {
 
     req.session.user = user.name;
     this.database.createNewUser(req.user.username, 'test@test.com');
-    res.cookie(req.cookies)
-      .redirect('http://v9_website.ngrok.io');
+    console.log(req);
+    if (!('cookies' in req)) {
+      console.log('Null object was found!');
+      res.redirect('http://v9_website.ngrok.io');
+    } else {
+      res.cookie(req.cookies).redirect('http://v9_website.ngrok.io');
+    }
   }
 
   getRouter() {

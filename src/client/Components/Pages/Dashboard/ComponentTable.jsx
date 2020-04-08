@@ -10,7 +10,7 @@ import ComponentStatusRow from 'client/Components/Pages/Dashboard/ComponentStatu
 
 
 type ComponentTableProps = {
-  components: Array<ComponentDashboardEntry>
+  components: Array<DeployedComponentEntry>
 };
 
 export default function ComponentTable(props: ComponentTableProps) {
@@ -18,7 +18,7 @@ export default function ComponentTable(props: ComponentTableProps) {
     <TableContainer component={Paper}>
       <Table>
         <TableBody>
-          {props.components.map((item: ComponentDashboardEntry) => (
+          {props.components.map((item: DeployedComponentEntry) => (
             <ComponentStatusRow component={item} />
           ))}
         </TableBody>

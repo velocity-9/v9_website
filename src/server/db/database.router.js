@@ -1,6 +1,7 @@
 // @flow
 
 import * as express from 'express';
+import _ from 'underscore';
 
 import Database from 'server/db/database';
 
@@ -25,33 +26,47 @@ class DatabaseRouter {
     const username = req.user.username;
 
     // part 1: get user components
-    const userComponentInfo = await this.database.getUserComponents(username);
+    const userComponents = await this.database.getUserComponents(username);
+    if (userComponents.length === 0) {
+      res.json([]);
+      return;
+    }
 
-    const colorPromises = userComponentInfo.map(
-      (component) => this.database.getComponentColor(username, component.github_repo)
-    );
-    const deployingPromises = userComponentInfo.map(
-      (component) => this.database.getComponentDeployingStatus(username, component.github_repo)
-    );
+    const userId = userComponents[0].user_id;
 
-    const colorResults = await Promise.all(colorPromises);
-    const deployingResults = await Promise.all(deployingPromises);
+    const componentColorInfo = await this.database.getComponentColors(userId);
+    const componentDeployingInfo = await this.database.getComponentsDeployingStatus(userId);
+    const runningComponents = await this.database.getRunningComponents(userId);
 
-    const results = [];
-    for (let i = 0; i < userComponentInfo.length; i += 1) {
-      const isDeploying = deployingResults[i] != null;
-      const color = colorResults[i] != null ? 'grey' : colorResults[i];
+    const deployedComponents = _.filter(userComponents, (item) => item.deployment_intention !== 'not_a_component');
+    const notDeployedComponents = _.filter(userComponents, (item) => item.deployment_intention === 'not_a_component');
+    const notDeployedComponentStrings = _.map(notDeployedComponents, (item) => item.github_repo);
 
-      results.push({
-        username: userComponentInfo[i].github_username,
-        componentName: userComponentInfo[i].github_repo,
-        deploymentIntention: userComponentInfo[i].deployment_intention,
-        color,
-        isDeploying
+    const fullyDeployedComponentsInfo = [];
+    for (let i = 0; i < deployedComponents.length; i += 1) {
+      const componentId = deployedComponents[i].component_id;
+      const componentColorEntry = _.findWhere(componentColorInfo, { component_id: componentId });
+      const componentColor = componentColorEntry !== undefined ? componentColorEntry.color : 'grey';
+      const isDeploying = _.findWhere(
+        componentDeployingInfo,
+        { component_id: componentId }
+      ) !== undefined;
+      const isRunning = _.findWhere(runningComponents, { component_id: componentId }) !== undefined;
+
+      fullyDeployedComponentsInfo.push({
+        username,
+        componentName: deployedComponents[i].github_repo,
+        deploymentIntention: deployedComponents[i].deployment_intention,
+        color: componentColor,
+        isDeploying,
+        isRunning
       });
     }
 
-    res.json(results);
+    res.json({
+      components: fullyDeployedComponentsInfo,
+      notComponents: notDeployedComponentStrings
+    });
   }
 
   getComponentStatsRequest(req: express.$Request, res: express.$Response) {
