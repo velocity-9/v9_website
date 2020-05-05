@@ -42,15 +42,15 @@ class TabBar extends React.Component<TabTableProps, TabTableState> {
   }
 
   update() {
+    const graphLength = 6;
     const logUrl = `/api/db/getComponentLogs?component=${this.props.componentName}`;
-    const statUrl = `/api/db/getComponentStats?component=${this.props.componentName}`;
+    const statUrl = `/api/db/getComponentStatInterval?component=${this.props.componentName}&numIntervals=${graphLength}`;
 
     makeGetRequest(logUrl).then((result) => {
       this.setState({ componentLogs: result });
     });
 
     makeGetRequest(statUrl).then((result) => {
-      console.log(result);
       this.setState({ componentStats: result });
     });
 
@@ -59,20 +59,19 @@ class TabBar extends React.Component<TabTableProps, TabTableState> {
   }
 
   handleTabChange(event: Event, newValue: number) {
-    console.log(newValue);
     this.setState({ currentTab: newValue });
   }
 
   render() {
     return (
-      <Grid container item xs={10} spacing={3}>
+      <Grid container item xs={12} spacing={3}>
         <Grid item xs={2} spacing={3}>
           <Tabs orientation="vertical" value={this.state.currentTab} onChange={this.handleTabChange}>
             <Tab label="At a Glance" />
             <Tab label="Logs" />
           </Tabs>
         </Grid>
-        <Grid container item xs={8} spacing={3} justify="center">
+        <Grid container item xs={10} spacing={3} justify="center" direction="column">
           <TabDisplay
             logs={this.state.componentLogs}
             stats={this.state.componentStats}

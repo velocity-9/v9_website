@@ -15,6 +15,7 @@ class DatabaseRouter {
     this.router.get('/getUserComponents', (req, res) => this.getUserComponentsRequest(req, res));
     this.router.get('/getComponentStats', (req, res) => this.getComponentStatsRequest(req, res));
     this.router.get('/getComponentLogs', (req, res) => this.getComponentLogsRequest(req, res));
+    this.router.get('/getComponentStatInterval', (req, res) => this.getUserComponentsStatInterval(req, res));
   }
 
   async getUserComponentsRequest(req: express.$Request, res: express.$Response) {
@@ -78,9 +79,29 @@ class DatabaseRouter {
 
     this.database.getComponentStats(req.user.username, componentName)
       .then((data) => {
-        console.log(data);
         res.json(data);
       });
+  }
+
+  async getUserComponentsStatInterval(req: express.$Request, res: express.$Response) {
+    const componentName = req.query.component;
+    const numTenMinIntervals = req.query.numIntervals;
+
+    if (!req.user) {
+      res.sendStatus(401);
+      return;
+    }
+
+    const results = [];
+
+    for (let i = 0; i < numTenMinIntervals; i += 1) {
+      const statEntry = await this.database.getStatsInMinutesRange(req.user.username, componentName, i * 10, (i + 1) * 10);
+      results.push(statEntry);
+    }
+
+    console.log(results);
+
+    res.json(results);
   }
 
   getComponentLogsRequest(req: express.$Request, res: express.$Response) {

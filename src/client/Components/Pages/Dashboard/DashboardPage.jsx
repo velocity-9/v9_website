@@ -38,7 +38,6 @@ export default class DashboardPage extends React.Component<PageProps, DashboardP
   }
 
   update() {
-    console.log('Updating...');
     const url = '/api/db/getUserComponents';
 
     makeGetRequest(url).then((result) => {
@@ -56,8 +55,9 @@ export default class DashboardPage extends React.Component<PageProps, DashboardP
     if (this.state.userComponents !== null && this.state.userComponents !== undefined) {
       sortedDeployedComponents = _.sortBy(this.state.userComponents.components, 'componentName');
       sortedNotDeployedComponents = this.state.userComponents.notComponents;
-      sortedNotDeployedComponents.sort();
-      console.log(sortedDeployedComponents);
+      if (sortedNotDeployedComponents !== null && sortedNotDeployedComponents !== undefined) {
+        sortedNotDeployedComponents.sort();
+      }
     }
 
     return (

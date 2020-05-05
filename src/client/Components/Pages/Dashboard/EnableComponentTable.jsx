@@ -13,7 +13,17 @@ type EnableComponentTableProps = {
 };
 
 export default function ComponentTable(props: EnableComponentTableProps) {
-  console.log(props.components);
+  if (props.components === null || props.components === undefined) {
+    return (
+      <TableContainer component={Paper}>
+        <Table>
+          <TableBody>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table>
